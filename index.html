@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flycarts - Special Campaign</title>
+    
+    <!-- Preconnect and DNS-Prefetch for critical external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Facebook Pixel Code (Placeholder) -->
+    <script>
+    const FB_PIXEL_ID = '';
+    function fbq(){ if(window.fbq && FB_PIXEL_ID) window.fbq(arguments); }
+    function fbqTrack(event, params) {
+        if(FB_PIXEL_ID && window.fbq) {
+            window.fbq('track', event, params);
+        }
+    }
+    if(FB_PIXEL_ID) {
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', FB_PIXEL_ID);
+    }
+    </script>
+    <!-- End Facebook Pixel Code -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" async></script>
+    
+    <style>
+        :root {
+            --primary: #6a1b9a;
+            --action: #ff9f00;
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --text: #1e1e1e;
+            --text-light: #6c757d;
+            --border: #e9ecef;
+            --success: #2e7d32;
+            --danger: #d32f2f;
+            --warning: #f57c00;
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html, body { overflow-x: hidden; }
+        body {
+            background:var(--bg); color:var(--text); font-family: 'Poppins', sans-serif;
+            line-height: 1.6; padding-bottom:70px; user-select:none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        header {
+            background: linear-gradient(135deg, #6a1b9a, #4a148c);
+            padding: 12px 15px; position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo-area { display:flex; align-items:center; gap:10px; }
+        .logo-text { color:white; font-weight:bold; font-size:24px; font-style:italic; letter-spacing:-1px; }
+        .logo-plus { color:#ffe500; font-size:12px; font-style:italic; }
+        .header-icons { display:flex; align-items:center; gap:12px; }
+        .cart-icon-wrap {
+            position:relative; cursor:pointer; color:white; width:44px; height:44px;
+            display:flex; align-items:center; justify-content:center; transition:transform 0.3s;
+        }
+        .cart-icon-wrap:active { transform:scale(0.95); }
+        .cart-count {
+            position:absolute; top:-4px; right:-6px; background:#e91e63; color:white; border-radius:50%;
+            width:20px; height:20px; font-size:11px; display:flex; align-items:center; justify-content:center;
+            font-weight:bold; animation:bounce 0.3s;
+        }
+        @keyframes bounce { 50% { transform:scale(1.3); } }
+        .track-icon-wrap {
+            display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%;
+            background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.5); cursor:pointer; position:relative;
+            transition:0.25s; color:white; font-size:20px;
+        }
+        .track-icon-wrap:active { transform:scale(0.94); background:rgba(255,255,255,0.3); }
+        .track-icon-wrap.has-order {
+            border-color:#ff9f00; background:rgba(255,159,0,0.2);
+            animation:trackGlowPulse 2s infinite; box-shadow:0 0 15px rgba(255,159,0,0.4);
+        }
+        .track-icon-wrap img.track-human-icon { width:24px; height:24px; object-fit:contain; filter:brightness(0) invert(1); }
+        .track-icon-wrap.has-order img.track-human-icon { filter:none; }
+        .track-dot-indicator {
+            position:absolute; top:-4px; right:-4px; width:12px; height:12px; background:#ff3e6c; border-radius:50%;
+            border:2px solid #fff; display:none;
+        }
+        .track-icon-wrap.has-order .track-dot-indicator { display:block; animation:dotPulse 1.5s infinite; }
+        @keyframes trackGlowPulse {
+            0%,100% { box-shadow:0 0 12px rgba(255,159,0,0.3); }
+            50% { box-shadow:0 0 25px rgba(255,159,0,0.7); }
+        }
+        @keyframes dotPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.5); } }
+        .hot-strip {
+            background:linear-gradient(90deg, #ff3e6c, #ff6b8a); color:white; padding:8px 15px; text-align:center;
+            font-weight:bold; font-size:13px; display:flex; align-items:center; justify-content:center; gap:8px; white-space:nowrap;
+        }
+        .hot-badge { background:#fff; color:#ff3e6c; padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold; }
+        .delivery-banner {
+            background:linear-gradient(90deg, #e8f5e9, #f1f8f4); color:#1e7e34; padding:8px 15px; text-align:center;
+            font-weight:600; font-size:12px; display:flex; align-items:center; justify-content:center; gap:16px;
+            flex-wrap:nowrap; white-space:nowrap; overflow-x:auto;
+        }
+        .delivery-banner span { display:inline-flex; align-items:center; gap:4px; flex-shrink:0; }
+        .detail-slider-wrapper { position:relative; width:100%; background:#f0f0f0; overflow:hidden; border-radius:0; box-shadow:var(--shadow); }
+        .detail-slider-container { display:flex; transition:transform 0.4s ease; height:300px; }
+        .detail-slide { min-width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+        .detail-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+        .detail-dot { width:8px; height:8px; background:rgba(255,255,255,0.7); border-radius:50%; cursor:pointer; transition:0.2s; }
+        .detail-dot.active { background:var(--action); width:22px; border-radius:10px; }
+        .best-seller-badge {
+            position:absolute; top:14px; left:14px; background:var(--action); color:#fff; padding:4px 12px;
+            border-radius:50px; font-size:11px; font-weight:600; z-index:2; display:flex; align-items:center; gap:4px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+        .main-content { padding:24px 20px; }
+        .p-title { 
+            font-size:20px; font-weight:600; line-height:1.35; margin-bottom:6px; color:var(--text); 
+            word-break: break-word;
+            cursor: pointer;
+        }
+        .p-title .title-short {
+            display: inline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+        .p-title .title-full { display: none; }
+        .p-title.show-full .title-short { display: none; }
+        .p-title.show-full .title-full { display: inline; }
+        .p-desc { font-size:15px; color:var(--text-light); margin-bottom:14px; line-height:1.5; }
+        .warranty-badge { background:#e8f5e9; color:var(--success); display:inline-block; padding:6px 16px; border-radius:50px; font-size:13px; font-weight:600; margin-bottom:14px; }
+        .benefit-list { list-style:none; padding:0; margin-bottom:18px; }
+        .benefit-list li { font-size:14px; margin-bottom:10px; display:flex; align-items:center; gap:10px; color:var(--text); }
+        .benefit-list li span { font-size:18px; }
+        .rating-summary { display:flex; align-items:center; gap:8px; margin-bottom:16px; font-size:14px; font-weight:500; }
+        .rating-badge { background:var(--success); color:#fff; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:700; }
+        .price-row { display:flex; align-items:baseline; gap:12px; margin-bottom:6px; }
+        .price-main { font-size:30px; font-weight:700; color:var(--text); }
+        .price-mrp { font-size:17px; color:var(--text-light); text-decoration:line-through; }
+        .price-off { font-size:17px; color:var(--success); font-weight:600; }
+        .sold-count { font-size:13px; color:var(--danger); font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:6px; }
+        .pincode-checker { display:flex; gap:10px; margin:14px 0; align-items:center; flex-wrap:wrap; }
+        .pincode-checker input { padding:12px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); width:130px; font-size:14px; transition:0.2s; background:var(--surface); }
+        .pincode-checker input:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(106,27,154,0.1); }
+        .pincode-checker button { background:var(--primary); color:#fff; border:none; padding:12px 18px; border-radius:var(--radius-sm); cursor:pointer; font-weight:600; font-size:14px; transition:background 0.2s; min-height:48px; }
+        .pincode-checker button:hover { background:#7b1fa2; }
+        .pincode-result { font-size:13px; margin-top:6px; font-weight:500; }
+        .flash-countdown { background:var(--surface); padding:16px; border-radius:var(--radius); margin:18px 0; text-align:center; box-shadow:var(--shadow); }
+        .flash-countdown .timer { font-size:22px; font-weight:700; color:var(--danger); }
+        .progress-bar-wrap { background:#e0e0e0; height:8px; border-radius:10px; margin:12px 0 8px; }
+        .progress-bar-fill { background:var(--danger); height:100%; border-radius:10px; width:85%; transition:width 0.5s; }
+        .stock-text { font-size:13px; color:var(--text-light); font-weight:500; }
+        .bundle-offers {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap:10px; margin:18px 0;
+        }
+        .bundle-card {
+            background:var(--surface); border:2px solid var(--border); border-radius:var(--radius);
+            padding:12px 8px; text-align:center; cursor:pointer; transition:all 0.2s;
+            font-weight:500; display:flex; flex-direction:column; align-items:center; justify-content:center;
+        }
+        .bundle-card.active {
+            border-color:var(--action); background:#fff8e1;
+            box-shadow:0 0 12px rgba(255,159,0,0.2); transform:scale(1.02);
+        }
+        .bundle-card .bundle-label { font-weight:700; font-size:15px; margin-bottom:6px; color:var(--text); }
+        .bundle-card .bundle-items { font-size:12px; color:var(--text-light); margin-bottom:4px; }
+        .bundle-card .bundle-price { font-size:18px; font-weight:700; color:var(--primary); margin:6px 0; }
+        .bundle-card .bundle-save { font-size:12px; color:var(--success); font-weight:600; margin-bottom:6px; }
+        .bundle-card .bundle-badge {
+            background:#e8f5e9; color:var(--success); padding:4px 10px; border-radius:50px;
+            font-size:11px; font-weight:600; margin-top:4px; word-break:break-word;
+        }
+        .qty-box { display:none; }
+        .offer-box { background:#f1f8e9; border:1px solid #c8e6c9; padding:20px; margin:20px 0; border-radius:var(--radius); }
+        .offer-title { font-size:15px; font-weight:700; color:var(--success); margin-bottom:12px; }
+        .offer-item { font-size:13px; color:#333; margin-bottom:8px; display:flex; gap:8px; align-items:flex-start; }
+        .offer-item i { color:var(--success); margin-top:2px; }
+        .cod-badge { display:flex; align-items:center; gap:10px; background:#f1f8e9; padding:12px 16px; border-radius:var(--radius-sm); margin:14px 0; font-size:13px; color:var(--success); font-weight:500; }
+        .emi-badge-detail { background:#fff3e0; border:1px solid #ffe0b2; padding:12px 16px; border-radius:var(--radius-sm); margin:16px 0; font-size:13px; font-weight:600; color:#e65100; text-align:center; }
+        .trust-badges { display:flex; justify-content:center; gap:20px; margin:16px 0; font-size:13px; color:var(--text-light); }
+        .trust-badge-item { text-align:center; font-weight:500; }
+        .trust-badge-item i { font-size:20px; color:var(--primary); display:block; margin-bottom:6px; }
+        .video-section { margin:20px 0; background:var(--surface); padding:20px; border-radius:var(--radius); box-shadow:var(--shadow); }
+        .video-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; }
+        .video-card { background:#fafafa; border-radius:var(--radius-sm); overflow:hidden; cursor:pointer; }
+        .video-card .vid-title { display: none; }
+        .video-card .vid-container { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#000; }
+        .video-card .vid-container iframe,
+        .video-card .vid-container video { position:absolute; top:0; left:0; width:100%; height:100%; border:none; pointer-events:none; }
+        .video-card .vid-container::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent;
+            z-index: 2;
+        }
+        .spec-table-wrapper { margin:16px 0; border-radius:var(--radius-sm); box-shadow:var(--shadow); }
+        .spec-table { width:100%; border-collapse:collapse; font-size:14px; background:var(--surface); }
+        .spec-table td { padding:12px 16px; border-bottom:1px solid #f0f0f0; }
+        .spec-table td:first-child { color:var(--text-light); width:40%; font-weight:500; }
+        .rating-block { background:var(--surface); padding:20px; border-radius:var(--radius); margin:20px 0; box-shadow:var(--shadow); }
+        .rating-overall { display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+        .rating-number { font-size:44px; font-weight:700; color:var(--text); }
+        .rating-stars { color:var(--action); font-size:18px; margin:6px 0; }
+        .rating-text { font-size:13px; color:var(--text-light); }
+        .rating-bars { flex:1; min-width:200px; }
+        .bar-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:13px; }
+        .bar-label { width:30px; text-align:right; }
+        .bar-track { flex:1; height:6px; background:#e0e0e0; border-radius:10px; overflow:hidden; }
+        .bar-fill { height:100%; background:var(--action); border-radius:10px; }
+        .bar-count { width:35px; color:var(--text-light); }
+        .review-box { background:var(--surface); padding:16px; border-radius:var(--radius-sm); margin:12px 0; box-shadow:var(--shadow); border-left:4px solid var(--success); }
+        .review-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+        .review-header .stars { color:var(--action); font-weight:700; cursor:pointer; transition:transform 0.1s; }
+        .review-header .stars:active { transform:scale(0.95); }
+        .review-location { font-size:11px; background:#fff3e0; color:var(--warning); padding:2px 10px; border-radius:50px; font-weight:500; }
+        .review-text { font-size:14px; color:var(--text); margin-bottom:8px; }
+        .review-author { font-size:11px; color:#aaa; }
+        .review-photos { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+        .review-photo-thumb { width:60px; height:60px; object-fit:cover; border-radius:6px; cursor:pointer; border:1px solid #eee; transition:transform 0.2s; }
+        .review-photo-thumb:hover { transform:scale(1.05); }
+        .review-actions { display:flex; gap:16px; margin-top:10px; font-size:12px; color:var(--text-light); }
+        .review-actions span { cursor:pointer; display:flex; align-items:center; gap:5px; }
+        .trust-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin:24px 0; text-align:center; }
+        .trust-item i { font-size:24px; color:var(--primary); margin-bottom:6px; }
+        .trust-item p { font-size:11px; font-weight:600; line-height:1.3; color:var(--text); }
+        .action-bar {
+            position:fixed; bottom:0; width:100%; height:64px; display:flex; background:rgba(255,255,255,0.9);
+            backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); box-shadow:0 -4px 20px rgba(0,0,0,0.08); z-index:2500;
+        }
+        .btn-secondary { flex:1; display:flex; align-items:center; justify-content:center; font-weight:600; color:var(--text); border-right:1px solid var(--border); cursor:pointer; text-decoration:none; background:transparent; font-size:14px; }
+        .btn-primary {
+            flex:1.2; background:var(--action); color:#fff; display:flex; align-items:center; justify-content:center;
+            font-weight:700; cursor:pointer; text-decoration:none; font-size:16px; letter-spacing:-0.3px;
+            transition:background 0.2s, transform 0.1s; min-height:64px;
+        }
+        .btn-primary:active { background:#e69500; transform:scale(0.98); }
+        .btn-primary.disabled { opacity:0.6; pointer-events:none; }
+        .toast-message {
+            position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:#333; color:#fff;
+            padding:12px 22px; border-radius:50px; font-size:14px; z-index:10000; box-shadow:0 6px 16px rgba(0,0,0,0.2);
+            pointer-events:none; animation:toastFade 0.3s ease-out; display:none;
+        }
+        @keyframes toastFade { from { opacity:0; transform:translateX(-50%) translateY(15px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+        .full-page { position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg); z-index:2000; display:none; overflow-y:auto; animation:slideUp 0.25s ease-out; }
+        @keyframes slideUp { from { transform:translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+        .nav-back { padding:16px 20px; display:flex; align-items:center; border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--surface); z-index:100; font-weight:600; gap:12px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.02); }
+        .cart-container { padding:20px; background:var(--bg); min-height:100vh; padding-bottom:100px; }
+        .cart-item { background:var(--surface); padding:16px; margin-bottom:12px; border-radius:var(--radius); display:flex; gap:16px; align-items:center; box-shadow:var(--shadow); }
+        .cart-item img { width:80px; height:80px; object-fit:cover; border-radius:var(--radius-sm); }
+        .cart-item-info { flex:1; }
+        .cart-qty { display:flex; align-items:center; gap:8px; margin-top:10px; }
+        .cart-qty button { background:#f0f0f0; border:none; width:32px; height:32px; border-radius:50%; font-size:18px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+        .remove-btn { background:#fff; color:#d32f2f; border:1px solid #ffcdd2; padding:8px 14px; border-radius:var(--radius-sm); cursor:pointer; font-size:12px; font-weight:600; }
+        .empty-cart { text-align:center; padding:80px 20px; background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); }
+        .empty-cart i { font-size:60px; color:#ddd; }
+        .cart-summary { background:var(--surface); border-radius:var(--radius); padding:20px; margin-top:16px; box-shadow:var(--shadow); }
+        .checkout-container { padding:20px; background:var(--bg); min-height:100vh; padding-bottom:80px; }
+        .section-card { background:var(--surface); padding:20px; margin-bottom:16px; border-radius:var(--radius); box-shadow:var(--shadow); }
+        .section-card h3 { font-size:16px; margin-bottom:16px; font-weight:600; }
+        .input-group { margin-bottom:14px; }
+        .input-group label { font-size:13px; color:var(--text-light); display:block; margin-bottom:6px; font-weight:500; }
+        .input-group input, .input-group textarea { width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; background:var(--surface); transition:0.2s; min-height:48px; }
+        .input-group input:focus, .input-group textarea:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(106,27,154,0.1); }
+        .two-col { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .pay-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin:16px 0; }
+        .pay-option {
+            border:2px solid var(--border); background:var(--surface); padding:12px 8px; text-align:center;
+            border-radius:var(--radius); text-decoration:none; color:var(--text); font-size:12px; font-weight:600;
+            cursor:pointer; transition:0.2s; display:flex; flex-direction:column; align-items:center; gap:4px;
+            justify-content:center;
+        }
+        .pay-option:active { background:#f3e5f5; border-color:var(--primary); }
+        .pay-option img { height:24px; object-fit:contain; display:block; }
+        .upi-apps { display:flex; gap:20px; justify-content:center; margin:14px 0; }
+        .upi-apps img { width:50px; height:auto; }
+        .payment-trust { display:flex; gap:24px; justify-content:center; margin:16px 0; font-size:13px; color:var(--text-light); }
+        .payment-trust img { height:24px; margin-right:6px; vertical-align:middle; }
+        .success-modal {
+            display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);
+            z-index:5000; justify-content:center; align-items:center;
+        }
+        .success-content { background:var(--surface); border-radius:var(--radius); padding:30px; text-align:center; max-width:340px; width:90%; animation:pop 0.3s; }
+        .success-content i { font-size:60px; color:var(--success); }
+        @keyframes pop { from { transform:scale(0.8); opacity:0; } to { transform:scale(1); opacity:1; } }
+        .social-popup {
+            position:fixed; bottom:90px; right:16px; z-index:3000; max-width:280px; background:var(--surface);
+            border-radius:var(--radius); padding:14px 16px; box-shadow:0 8px 24px rgba(0,0,0,0.15); display:none;
+            animation:popIn 0.3s ease-out; font-family:'Poppins', sans-serif; border:1px solid #f0f0f0;
+        }
+        .social-popup.show { display:block; }
+        @keyframes popIn { 0% { transform:translateY(15px); opacity:0; } 100% { transform:translateY(0); opacity:1; } }
+        .popup-flex { display:flex; align-items:flex-start; gap:12px; }
+        .popup-avatar { width:38px; height:38px; border-radius:50%; background:#e1bee7; color:var(--primary); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; text-transform:uppercase; flex-shrink:0; }
+        .popup-text { flex:1; }
+        .popup-name { font-weight:700; font-size:14px; color:var(--text); }
+        .popup-location { font-size:11px; color:var(--text-light); margin-left:6px; }
+        .popup-detail { font-size:13px; margin-top:4px; color:var(--text); }
+        .popup-price { font-weight:700; color:var(--action); }
+        .popup-badge { display:inline-block; background:#fff3e0; color:#e65100; padding:2px 10px; border-radius:50px; font-size:10px; font-weight:600; margin-left:6px; }
+        .whatsapp-float { position:fixed; bottom:130px; right:20px; background:#25D366; color:#fff; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; box-shadow:0 6px 16px rgba(0,0,0,0.15); cursor:pointer; z-index:3000; transition:transform 0.2s; }
+        .whatsapp-float:active { transform:scale(0.9); }
+        .lightbox-overlay {
+            display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92);
+            z-index:7000; justify-content:center; align-items:center;
+        }
+        .lightbox-overlay.show { display:flex; }
+        .lightbox-content { position:relative; width:90%; max-width:600px; max-height:90vh; display:flex; align-items:center; justify-content:center; }
+        .lightbox-content img { width:100%; max-height:80vh; object-fit:contain; border-radius:8px; transition: transform 0.1s ease; }
+        .lightbox-close {
+            position:absolute; top:-40px; right:0; color:#fff; font-size:30px; cursor:pointer; z-index:10;
+            background:rgba(255,255,255,0.2); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+        }
+        .lightbox-prev, .lightbox-next {
+            position:absolute; top:50%; transform:translateY(-50%); color:#fff; font-size:28px; cursor:pointer;
+            background:rgba(255,255,255,0.25); border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+            z-index:10; transition:background 0.2s;
+        }
+        .lightbox-prev { left:10px; } .lightbox-next { right:10px; }
+        .lightbox-prev:active, .lightbox-next:active { background:rgba(255,255,255,0.5); }
+        .track-modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); z-index:6000; justify-content:center; align-items:center; padding:20px; }
+        .track-modal-overlay.show { display:flex; }
+        .track-modal-box { background:#fff; border-radius:14px; width:100%; max-width:420px; max-height:85vh; overflow-y:auto; box-shadow:0 14px 45px rgba(0,0,0,0.3); animation:trackModalPop 0.3s ease-out; }
+        @keyframes trackModalPop { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+        .track-modal-header { background:linear-gradient(135deg, #6a1b9a, #4a148c); color:#fff; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; border-radius:14px 14px 0 0; position:sticky; top:0; z-index:5; }
+        .track-modal-header h3 { font-size:16px; font-weight:600; display:flex; align-items:center; gap:8px; }
+        .track-modal-close-btn { background:rgba(255,255,255,0.2); border:none; color:#fff; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; }
+        .track-modal-body { padding:20px; }
+        .track-order-card { background:#fafafa; border:1px solid #e9ecef; border-radius:10px; padding:16px; margin-bottom:16px; }
+        .track-order-row { display:flex; justify-content:space-between; margin-bottom:8px; font-size:13px; }
+        .track-order-row:last-child { margin-bottom:0; }
+        .track-order-row .lbl { color:#6c757d; font-weight:500; }
+        .track-order-row .val { font-weight:600; color:#1e1e1e; }
+        .track-order-row .val.price { color:#6a1b9a; font-size:15px; }
+        .track-order-row .val.saved { color:#2e7d32; }
+        .track-timeline { position:relative; padding-left:32px; margin:18px 0; }
+        .track-timeline::before { content:''; position:absolute; left:14px; top:0; bottom:0; width:3px; background:#e0e0e0; border-radius:2px; }
+        .track-step { position:relative; margin-bottom:20px; padding-left:8px; }
+        .track-step:last-child { margin-bottom:0; }
+        .track-step .step-circle {
+            position:absolute; left:-26px; top:2px; width:24px; height:24px; border-radius:50%; display:flex; align-items:center;
+            justify-content:center; font-size:11px; z-index:2; border:2px solid #ccc; background:#fff; color:#999;
+        }
+        .track-step.completed .step-circle { background:#2e7d32; border-color:#2e7d32; color:#fff; }
+        .track-step.active .step-circle { background:#ff9f00; border-color:#ff9f00; color:#fff; animation:stepCirclePulse 2s infinite; box-shadow:0 0 0 6px rgba(255,159,0,0.18); }
+        @keyframes stepCirclePulse { 0%,100% { box-shadow:0 0 0 4px rgba(255,159,0,0.15); } 50% { box-shadow:0 0 0 10px rgba(255,159,0,0.06); } }
+        .track-step .step-label { font-size:13px; font-weight:600; color:#333; }
+        .track-step .step-time { font-size:11px; color:#999; }
+        .track-info-card { background:#fafafa; border:1px solid #e9ecef; border-radius:10px; padding:16px; margin-top:16px; }
+        .track-info-card .track-wait-msg {
+            background:none; border:none; padding:0; margin:0 0 16px 0; font-size:13px; color:#e65100; font-weight:500;
+            line-height:1.5; display:flex; align-items:center; gap:8px;
+        }
+        .track-info-card .track-wait-msg i { color:#f57c00; font-size:16px; }
+        .track-actions-row { display:flex; gap:10px; }
+        .track-actions-row button {
+            flex:1; padding:10px 12px; border-radius:50px; font-weight:600; font-size:13px; cursor:pointer; border:none;
+            display:flex; align-items:center; justify-content:center; gap:6px; transition:0.2s;
+        }
+        .btn-copy { background:#f3e5f5; color:#6a1b9a; border:1px solid #d1c4e9; }
+        .btn-copy:active { background:#e1bee7; }
+        .btn-more { background:#fff3e0; color:#e65100; border:1px solid #ffcc80; }
+        .btn-more:active { background:#ffe0b2; }
+        .site-footer { background:linear-gradient(135deg, #2b0f4c 0%, #150627 100%); color:#e0d7f5; padding:30px 0 0; margin-top:30px; box-shadow:0 -6px 25px rgba(0,0,0,0.3); border-top:2px solid rgba(176,132,245,0.4); text-align:center; }
+        .site-footer .footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:20px; }
+        .site-footer .footer-links a { text-decoration:none; background:rgba(255,255,255,0.06); color:#d9b3ff; border:1.5px solid #906bff; padding:10px 18px; border-radius:50px; font-weight:600; font-size:0.85rem; display:inline-block; }
+        .site-footer .footer-info { padding:0 20px 15px; font-size:0.8rem; color:#b39ddb; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:12px; }
+        .site-footer .footer-bottom { padding:12px 20px; font-size:0.75rem; color:#b39ddb; }
+        .real-image-section { margin:20px 0; background:var(--surface); padding:20px; border-radius:var(--radius); box-shadow:var(--shadow); }
+        .section-title { margin-bottom:15px; font-size:18px; font-weight:600; color:var(--text); }
+        .real-image-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; }
+        .real-image-grid .real-img-card:nth-child(n+5) { display: none; }
+        .real-image-grid.show-all .real-img-card:nth-child(n+5) { display: block; }
+        .real-img-card { cursor:pointer; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--border); }
+        .real-img-card img { width:100%; height:150px; object-fit:cover; display:block; transition:transform 0.3s; }
+        .real-img-card:hover img { transform:scale(1.05); }
+        .view-more-btn { width:100%; padding:12px; margin-top:15px; cursor:pointer; background:var(--primary); color:white; border:none; border-radius:var(--radius-sm); font-weight:500; }
+
+        .fl-proc-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            z-index: 99999; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s;
+            will-change: opacity;
+        }
+        .fl-proc-overlay.active { opacity: 1; pointer-events: auto; }
+        .fl-proc-box {
+            background: rgba(255,255,255,0.95); border-radius: 20px; padding: 30px 20px;
+            text-align: center; width: 90%; max-width: 340px; box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            transform: translate3d(0,0,0); backface-visibility: hidden;
+        }
+        .fl-spinner {
+            width: 48px; height: 48px; margin: 0 auto 20px; border: 4px solid #e0e0e0;
+            border-top-color: #6a1b9a; border-radius: 50%; animation: fl-spin 0.8s linear infinite;
+            will-change: transform;
+        }
+        @keyframes fl-spin { to { transform: rotate(360deg); } }
+        .fl-status-text { font-size: 15px; color: #333; margin: 10px 0; font-weight: 500; }
+
+        .fl-modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none; justify-content: center; align-items: center;
+            z-index: 99999; opacity: 0; transition: opacity 0.3s ease-in-out;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .fl-modal-overlay.fc-show { display: flex; opacity: 1; }
+        .fl-success-box {
+            background: #ffffff; width: 90%; max-width: 400px;
+            padding: 40px 20px; border-radius: 16px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .fl-modal-overlay.fc-show .fl-success-box { transform: scale(1); }
+        .fl-tick-circle {
+            width: 80px; height: 80px; background: #28a745;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 20px auto; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            animation: fl-popIn 0.5s ease-out forwards;
+        }
+        .fl-tick-mark { color: white; font-size: 40px; line-height: 1; }
+        .fl-title { font-size: 24px; color: #212121; margin: 0 0 10px 0; font-weight: 700; }
+        .fl-subtitle { font-size: 15px; color: #666; margin: 0 0 30px 0; line-height: 1.5; }
+        .fl-continue-btn {
+            background: #2874f0; color: white; border: none;
+            padding: 14px 30px; font-size: 16px; font-weight: 600;
+            border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s;
+        }
+        .fl-continue-btn:hover { background: #1a5ac6; }
+        @keyframes fl-popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .fc-cod-simple-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.25s;
+            width: 100%;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        .fc-cod-simple-btn:active { background: #f0f7ff; border-color: #00baf2; }
+        .fc-cod-simple-left { display: flex; align-items: center; gap: 14px; flex: 1; }
+        .fc-cod-simple-brand-img {
+            width: 42px; height: 42px;
+            background: linear-gradient(135deg, #002e6e, #00baf2);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .fc-cod-simple-brand-img img { width: 85%; height: 85%; object-fit: contain; }
+        .fc-cod-simple-text { display: flex; flex-direction: column; }
+        .fc-cod-simple-main { font-size: 15px; font-weight: 800; color: #002e6e; }
+        .fc-cod-simple-sub { font-size: 12px; font-weight: 600; color: #ff9f00; }
+        .fc-cod-simple-arrow { color: #00baf2; font-size: 18px; }
+        .fc-cod-note {
+            font-size: 12px;
+            margin-top: 6px;
+            text-align: center;
+            color: #d32f2f;
+            font-weight: 500;
+            padding: 0 4px;
+        }
+        .fc-cod-note.green { color: #2e7d32; }
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .error-message.show { display: block; }
+
+        /* Video Lightbox */
+        .video-lightbox-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 8000; justify-content: center; align-items: center;
+        }
+        .video-lightbox-overlay.show { display: flex; }
+        .video-lightbox-content { position: relative; width: 90%; max-width: 720px; }
+        .video-lightbox-close {
+            position: absolute; top: -45px; right: 0; color: #fff; font-size: 30px; cursor: pointer;
+            background: rgba(255,255,255,0.2); border-radius: 50%; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center; z-index: 10;
+        }
+        .video-lightbox-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        .video-lightbox-container iframe,
+        .video-lightbox-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* NEW: input error & shake */
+        .input-error {
+            border: 2px solid #d32f2f !important;
+            box-shadow: 0 0 0 3px rgba(211,47,47,0.15) !important;
+        }
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo-area">
+        <span class="logo-text">Flycarts</span>
+        <span class="logo-plus">Premium <b style="color:#ffe500;">Plus</b> ✨</span>
+    </div>
+    <div class="header-icons">
+        <div class="cart-icon-wrap" onclick="openCart()">
+            <i class="fa fa-shopping-cart" style="font-size:22px;"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <div class="track-icon-wrap" id="trackOrderIcon" onclick="openTrackingModal()" title="Track Your Order">
+            <img class="track-human-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v1.2c0 .66.54 1.2 1.2 1.2h16.8c.66 0 1.2-.54 1.2-1.2v-1.2c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E" alt="Track Order">
+            <span class="track-dot-indicator"></span>
+        </div>
+    </div>
+</header>
+
+<div class="hot-strip">
+    <span class="hot-badge">🔥 HOT DEALS</span>
+    <span>Min 50% Off on Top Brands - Special Campaign</span>
+</div>
+<div class="delivery-banner">
+    <span><i class="fa fa-truck"></i> 3-6 Days Delivery</span>
+    <span><i class="fa fa-lock"></i> 100% Secure Payment</span>
+    <span><i class="fa fa-star"></i> Trusted Seller</span>
+</div>
+
+<div id="campaignPage" style="display:block;">
+    <div class="detail-slider-wrapper" id="heroSliderWrapper">
+        <div class="detail-slider-container" id="campSliderContainer"></div>
+        <div class="detail-dots" id="campDotsContainer"></div>
+        <div class="best-seller-badge" id="campBestSellerBadge" style="display:none;"><i class="fa fa-trophy"></i> Best Seller</div>
+        <div style="position:absolute; top:50%; left:10px; transform:translateY(-50%); background:rgba(255,255,255,0.8); width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5; font-size:18px; color:#333;" onclick="slideCampImg(-1)">‹</div>
+        <div style="position:absolute; top:50%; right:10px; transform:translateY(-50%); background:rgba(255,255,255,0.8); width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5; font-size:18px; color:#333;" onclick="slideCampImg(1)">›</div>
+    </div>
+
+    <div class="main-content">
+        <h1 class="p-title" id="campTitle" onclick="toggleTitleClick()"></h1>
+        <p class="p-desc" id="campDesc"></p>
+        <span class="warranty-badge"><i class="fa fa-shield"></i> 7 Days Easy Replacement Guarantee</span>
+		<span class="warranty-badge"><i class="fa fa-shield"></i> 1 Year Brand Warranty Included</span>
+
+        <div class="price-row">
+            <span class="price-main" id="campPrice">₹499</span>
+            <span class="price-mrp" id="campOld">₹1,799</span>
+            <span class="price-off" id="campOff">72% OFF</span>
+        </div>
+        <div class="sold-count" id="soldCountLine"><i class="fa fa-fire"></i> <span id="campSoldCountNum">158</span> bought in last 24 hours</div>
+
+        <ul class="benefit-list" id="benefitList"></ul>
+        <div class="rating-summary">
+            <span class="rating-badge" id="campRating">4.4 ★</span>
+            <span style="color:var(--text-light);font-size:13px;" id="campRatingCount">(5,890 Ratings)</span>
+        </div>
+
+        <div class="pincode-checker">
+            <input type="text" id="pincodeInput" placeholder="Enter Pincode" maxlength="6">
+            <button onclick="checkPincode()">Check Availability</button>
+        </div>
+        <div class="pincode-result" id="pincodeResult"></div>
+
+        <div class="flash-countdown">
+            <div>⚡ Flash Sale Ends in: <span class="timer" id="flashTimer">14:59</span></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="stockBar" style="width:85%;"></div></div>
+            <div class="stock-text"><span id="stockPercent">85%</span> stock already claimed</div>
+        </div>
+
+        <div class="bundle-offers" id="bundleContainer"></div>
+
+        <div class="offer-box">
+            <div class="offer-title"><i class="fa fa-tag"></i> Available Offers</div>
+            <div id="campOfferList"></div>
+        </div>
+
+        <div class="cod-badge">
+            <i class="fa fa-money-bill-wave"></i> <span>Cash on Delivery Available</span>
+            <i class="fa fa-undo" style="margin-left:12px;"></i> <span>7 Days Easy Return</span>
+        </div>
+
+        <div class="emi-badge-detail" id="campEmiDetail">💰 No Cost EMI starting from <b>₹<span id="campEmiAmount"></span>/month</b></div>
+
+        <div class="trust-badges">
+            <div class="trust-badge-item"><i class="fa fa-lock"></i> SSL Secured</div>
+            <div class="trust-badge-item"><i class="fa fa-shield-alt"></i> Genuine Product</div>
+            <div class="trust-badge-item"><i class="fa fa-credit-card"></i> Secure Payment</div>
+        </div>
+
+        <div class="video-section" id="campVideoSection" style="display:none;">
+            <h4 style="font-size:16px; font-weight:600; margin-bottom:14px;">🎥 Product Videos</h4>
+            <div class="video-grid" id="campVideoGrid"></div>
+            <button id="videoViewMoreBtn" class="view-more-btn" style="display:none; margin-top:15px;" onclick="toggleVideos()">
+                View More <i class="fa fa-chevron-down"></i>
+            </button>
+        </div>
+
+        <div class="real-image-section">
+            <h3 class="section-title">📸HAPPY CUSTOMER Reviews</h3>
+            <div class="real-image-grid" id="realImageGrid"></div>
+            <button id="viewMoreRealBtn" class="view-more-btn" onclick="toggleRealImages()" style="display:none;">View More</button>
+        </div>
+
+        <div style="background:var(--surface); padding:16px; border-radius:var(--radius); margin:18px 0; box-shadow:var(--shadow);">
+            <h4 style="font-size:15px; margin-bottom:12px; font-weight:600;">📋 Specifications</h4>
+            <div class="spec-table-wrapper">
+                <table class="spec-table" id="campSpecTable"></table>
+            </div>
+        </div>
+
+        <div class="rating-block">
+            <h4 style="font-size:15px; margin-bottom:14px; font-weight:600;">⭐ Ratings & Reviews</h4>
+            <div class="rating-overall" id="campRatingOverall"></div>
+        </div>
+
+        <div id="campLimitedReviews" style="margin-top:14px;"></div>
+        <button id="campViewMoreBtn" style="width:100%; padding:12px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-sm); cursor:pointer; font-weight:600; color:var(--primary); margin:14px 0; display:none;" onclick="toggleCampReviews()">
+            View More Reviews <i class="fa fa-chevron-down"></i>
+        </button>
+        <div id="campAllReviews" style="display:none;"></div>
+
+        <div class="trust-grid">
+            <div class="trust-item"><i class="fa fa-shield-halved"></i><p>100% ORIGINAL<br>PRODUCT</p></div>
+            <div class="trust-item"><i class="fa fa-truck-fast"></i><p>FREE & FAST<br>DELIVERY</p></div>
+            <div class="trust-item"><i class="fa fa-rotate-left"></i><p>7 DAYS EASY<br>RETURNS</p></div>
+        </div>
+    </div>
+</div>
+
+<div id="cartPage" class="full-page">
+    <div class="nav-back" onclick="closePage('cartPage')"><i class="fa fa-arrow-left"></i> My Cart (<span id="cartPageCount">0</span> items)</div>
+    <div class="cart-container" id="cartItems"></div>
+</div>
+
+<div id="checkoutPage" class="full-page">
+    <div class="nav-back" onclick="closePage('checkoutPage')"><i class="fa fa-arrow-left"></i> Order Summary</div>
+    <div class="checkout-container">
+        <div class="section-card">
+            <h3>📍 Delivery Address</h3>
+            <div class="input-group"><label>Full Name *</label><input type="text" id="custName" placeholder="Enter your full name"></div>
+            <div class="input-group">
+                <label>Mobile Number *</label>
+                <input type="tel" id="custMobile" placeholder="10-digit mobile number" maxlength="11" pattern="(0[6-9]\d{9}|[6-9]\d{9})" required>
+                <div class="error-message" id="mobileError">Please enter a valid 10-digit mobile number.</div>
+            </div>
+            <div class="input-group">
+                <label>Pincode *</label>
+                <input type="text" id="custPincode" placeholder="6-digit pincode" onblur="autoCheckPincode()">
+            </div>
+            <div class="input-group"><label>Address *</label><textarea id="custAddress" rows="2" placeholder="Enter complete address"></textarea></div>
+            <div class="two-col">
+                <div class="input-group"><label>City *</label><input type="text" id="custCity" placeholder="City"></div>
+                <div class="input-group"><label>State *</label><input type="text" id="custState" placeholder="State"></div>
+            </div>
+        </div>
+        <div class="section-card" id="checkoutItemsCard">
+            <h3>📦 Items in Order</h3>
+            <div id="checkoutItemsList"></div>
+        </div>
+        <div class="section-card">
+            <h3>📋 Price Details</h3>
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span>Total MRP</span><span style="text-decoration:line-through; color:var(--text-light);" id="pMrp"></span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-weight:600; color:#d32f2f;" id="bundleSavingRow"><span>🎉 Bundle Savings</span><span>-₹<span id="pBundleSaving"></span></span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span>Delivery Charges</span><span style="color:var(--success);">FREE</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:18px; border-top:2px dashed var(--border); padding-top:14px;"><span>Total Amount</span><span id="pTotal"></span></div>
+            <div style="text-align:center; margin-top:10px; font-size:12px; color:var(--success);">All prices include taxes and delivery charges.</div>
+        </div>
+        <div class="section-card">
+            <h3>💳 Choose Payment Method</h3>
+            <div class="pay-grid">
+                <a href="#" class="pay-option" onclick="event.preventDefault(); openOtherUPI();">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/UPI.jpg" alt="UPI">
+                    <span>UPI</span>
+                </a>
+                <a href="#" class="pay-option" id="paytmDeepLink" onclick="event.preventDefault(); openPaytm();">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" alt="Paytm">
+                    <span>Paytm</span>
+                </a>
+            </div>
+
+            <div class="fc-cod-simple-btn" id="codButton" onclick="handleCodClick()">
+                <div class="fc-cod-simple-left">
+                    <div class="fc-cod-simple-brand-img">
+                        <img src="https://img.icons8.com/fluent/96/delivery.png" alt="COD">
+                    </div>
+                    <div class="fc-cod-simple-text">
+                        <span class="fc-cod-simple-main">Cash on Delivery</span>
+                        <span class="fc-cod-simple-sub">60% Advance + 40% After Delivery</span>
+                    </div>
+                </div>
+                <i class="fa fa-chevron-right fc-cod-simple-arrow"></i>
+            </div>
+            <div class="fc-cod-note" id="codNote">⚠️ Only 1 piece? Full online payment required. Order 2+ for COD.</div>
+
+            <div class="upi-apps">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Pay">
+                <img src="https://www.logo.wine/a/logo/PhonePe/PhonePe-Logo.wine.svg" alt="PhonePe">
+                <img src="https://www.logo.wine/a/logo/Paytm/Paytm-Logo.wine.svg" alt="Paytm">
+            </div>
+            <div style="text-align:center; margin-top:10px;">
+                <p style="font-size:13px; color:var(--text-light);">Or scan QR code</p>
+                <img id="qrImage" style="width:190px; border:2px solid var(--border); border-radius:var(--radius-sm);" alt="UPI QR Code">
+            </div>
+            <div class="payment-trust">
+                <span><img src="https://logo-teka.com/wp-content/uploads/2026/02/npci-national-payments-corporation-of-india-logo.svg" alt="NPCI">
+                <span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/BHIM_logo.svg/960px-BHIM_logo.svg.png" alt="BHIM UPI">
+            </div>
+        </div>
+        <div class="section-card" id="txnSection">
+            <h3>🔒 Confirm Payment</h3>
+            <p style="font-size:13px; color:var(--text-light); margin-bottom:12px;" id="txnInstruction">After successful UPI payment, enter your 12-digit Transaction ID to verify and place the order.</p>
+            <div class="input-group">
+                <label>Transaction ID / UPI Reference *</label>
+                <input type="text" id="txnId" placeholder="e.g. 123456789012" maxlength="12">
+            </div>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:8px; color:var(--success); font-size:13px; font-weight:600;">
+                <i class="fa fa-check-circle"></i> <span>100% Transaction Verified</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="action-bar" id="actionBar">
+    <a href="https://flycart-hot-deals.space/" class="btn-secondary"><i class="fa fa-home"></i> Home</a>
+    <a href="javascript:void(0)" class="btn-primary" id="orderPlaceBtn" onclick="orderPlaceAction()"><i class="fa fa-bolt"></i> ORDER PLACE</a>
+</div>
+
+<div class="social-popup" id="socialPopup">
+    <div class="popup-flex">
+        <div class="popup-avatar" id="socialAvatar">A</div>
+        <div class="popup-text">
+            <div><span class="popup-name" id="socialName"></span><span class="popup-location" id="socialLocation"></span></div>
+            <div class="popup-detail">just bought <strong id="socialQty"></strong> for <span class="popup-price" id="socialPrice"></span></div>
+            <span class="popup-badge">Hot Sale</span>
+        </div>
+    </div>
+</div>
+
+<div class="whatsapp-float" onclick="openWhatsApp()"><i class="fab fa-whatsapp"></i></div>
+<div class="toast-message" id="globalToast" style="display:none;"></div>
+
+<div class="success-modal" id="successModal">
+    <div class="success-content">
+        <i class="fa fa-check-circle"></i>
+        <h2>Order Placed Successfully!</h2>
+        <p id="successMsg"></p>
+        <button onclick="trackOrderFromSuccess()" style="margin-top:16px; padding:12px 28px; background: linear-gradient(135deg, #6a1b9a, #9c27b0); color:#fff; border:none; border-radius:50px; cursor:pointer; font-weight:600; font-size:15px; display:inline-flex; align-items:center; gap:8px; box-shadow: 0 8px 20px rgba(106,27,154,0.3); transition: all 0.3s ease; letter-spacing: 0.3px;"
+        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 25px rgba(106,27,154,0.45)';"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(106,27,154,0.3)';">
+        <i class="fa fa-box"></i> Track Your Order
+    </button>
+</div>
+</div>
+
+<div class="track-modal-overlay" id="trackingModalOverlay" onclick="if(event.target===this)closeTrackingModal()">
+    <div class="track-modal-box">
+        <div class="track-modal-header">
+            <h3><i class="fa fa-box"></i> Your Order</h3>
+            <button class="track-modal-close-btn" onclick="closeTrackingModal()">&times;</button>
+        </div>
+        <div class="track-modal-body" id="trackingModalBody"></div>
+    </div>
+</div>
+<div class="track-toast" id="trackToast"></div>
+
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="if(event.target===this)closeLightbox()">
+    <div class="lightbox-content">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-prev" onclick="lightboxNav(-1)"><i class="fa fa-chevron-left"></i></span>
+        <img id="lightboxImg" src="" alt="Product Image">
+        <span class="lightbox-next" onclick="lightboxNav(1)"><i class="fa fa-chevron-right"></i></span>
+    </div>
+</div>
+
+<div class="video-lightbox-overlay" id="videoLightboxOverlay" onclick="if(event.target===this)closeVideoLightbox()">
+    <div class="video-lightbox-content">
+        <span class="video-lightbox-close" onclick="closeVideoLightbox()">&times;</span>
+        <div class="video-lightbox-container" id="videoLightboxContainer"></div>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="https://sites.google.com/view/privacy-policy-ip-43-in/home" target="_blank">Privacy Policy</a>
+        <a href="https://sites.google.com/view/urh5t68h/home" target="_blank">Terms & Conditions</a>
+        <a href="https://sites.google.com/view/1233423vhg/home" target="_blank">Return & Refund</a>
+        <a href="https://sites.google.com/view/jvj453vhol/home" target="_blank">Contact Us</a>
+    </div>
+    <div class="footer-info">
+        ✉️ support@flycarts.com &nbsp;|&nbsp; 📞 +91 8032552320 &nbsp;|&nbsp; 📍 SR Engineering College Rd, Mathikere Bangalore {560054} India
+    </div>
+    <div class="footer-bottom">
+        © 2014-2030 Flycarts. All rights reserved.
+    </div>
+</footer>
+
+<div class="fl-proc-overlay" id="flProcessingOverlay">
+    <div class="fl-proc-box">
+        <div class="fl-spinner"></div>
+        <p class="fl-status-text" id="flProcStatus">Connecting to secure gateway...</p>
+    </div>
+</div>
+
+<div class="fl-modal-overlay" id="fcSuccessModal">
+    <div class="fl-success-box">
+        <div class="fl-tick-circle">
+            <span class="fl-tick-mark">✓</span>
+        </div>
+        <h2 class="fl-title">Congratulations!</h2>
+        <p class="fl-subtitle">Your order has been placed successfully.<br>Thank you for shopping with us!</p>
+        <button class="fl-continue-btn" onclick="fcCloseSuccessModal()">Continue Shopping</button>
+    </div>
+</div>
+
+<script>
+// ========== GLOBAL STATE ==========
+const UPI_ID = '8960560872@ptyes';
+const MERCHANT_NAME = 'Flycarts E-commerce';
+let cart = JSON.parse(localStorage.getItem('FlycartsCart')) || [];
+let selectedBundleIndex = 0;
+let lightboxImages = [];
+let lightboxCurrent = 0;
+let codOrderSelected = false;
+let campCurrentSlide = 0;
+let campReviewsExpanded = false;
+let orderActionLocked = false;
+
+// ========== PRODUCT DATA ==========
+const campaignProduct = {
+    id: "campaign-1",
+    name: "Aecooly Mini Portable Neck Fan, Mighty Hands Free Fan, USB Rechargeable 10H Max ",
+    description: " Aecooly Mini Portable Neck Fan, Magnetic Hands-Free Neck Fan with 10H Cooling, 2000mAh Rechargeable Battery,",
+    price: 599,
+    oldPrice: 1799,
+    offPercent: 67,
+    emi: 350,
+    rating: 4.9,
+    ratingCount: 5890,
+    soldLast24h: 158,
+    bestSeller: true,
+    bundles: [
+        { label: "Single Pack", qty: 1, packSize: 1, totalPrice: 599, badge: "🚚 Free Delivery | All taxes included" },
+        { label: "Duo Pack (2 Units)", qty: 2, packSize: 2, totalPrice: 849, badge: "🎁 2 Units for ₹849 + 🚚 Free Delivery" },
+        { label: "Mega Saver (3 Units)", qty: 3, packSize: 3, totalPrice: 999, badge: "🔥 3 Units for ₹999 + 🚚 Free Delivery" }
+    ],
+    images: [
+        "https://aecooly.com/cdn/shop/files/7110CY7RemL._AC_SL1500.jpg",
+        "https://m.media-amazon.com/images/I/71CmtOpWCuL._AC_UF894,1000_QL80_.jpg",
+        "https://aecooly.com/cdn/shop/files/12_cef03b93-81a9-4100-9fb0-bd3d894a1aaf.jpg",
+        "https://aecooly.com/cdn/shop/files/10_c360393a-efcf-4146-8ace-360e30e890cb.jpg",
+        "https://aecooly.com/cdn/shop/files/3_6914f67f-140e-4413-9754-90ba5dad7312.jpg"
+    ],
+    extraImages: [
+      "https://aecooly.com/cdn/shop/files/A_1_8678031e-279f-45d7-a3f9-46ab289ba12a.jpg",
+      "https://aecooly.com/cdn/shop/files/A_2_3b691d4e-9289-48bf-bfc3-99df9e3301cf.jpg"
+    ],
+    realImages: [
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mga87844.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmpv3jyx4ydeed.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmpz5btlwp3aab.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modri2tqhhc06d.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnbgohgvjz7o1d.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modrhqdwdl3j93.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7f39jbwv91.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mlgcdfh1hb7l01.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmmm0xdr9csh7e.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqtj3v5crnn65.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7xesj5sff4.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modrc2xcfpqh2e.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7k4328083c.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mogwgdcz7pjd04.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modhjylv7bbfda.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mgbmrofb.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5g7qx21f.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn549prnwy6c72.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipiyd26q6a6e.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipirmzype047.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipimwqlhxd24.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z4lc08a.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn2ns9gbtvk55e.webp",
+        "https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp"
+    ],
+    extraRealImages: [
+        "https://m.media-amazon.com/images/I/71CmtOpWCuL._AC_UF894,1000_QL80_.jpg",
+        "https://aecooly.com/cdn/shop/files/7110CY7RemL._AC_SL1500.jpg",
+        "https://aecooly.com/cdn/shop/files/12_cef03b93-81a9-4100-9fb0-bd3d894a1aaf.jpg",
+        "https://aecooly.com/cdn/shop/files/10_c360393a-efcf-4146-8ace-360e30e890cb.jpg",
+        "https://aecooly.com/cdn/shop/files/3_6914f67f-140e-4413-9754-90ba5dad7312.jpg",
+        "https://pbs.twimg.com/media/HHsfvIebsAAFwFH?format=jpg",       
+    ],
+    youtubeVideos: [],
+    vimeoVideos: [],
+    mp4Videos:[
+        "https://down-ws-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0k-mnso8c47d1j6d7.16000051777816698.mp4",
+        "https://down-ws-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0p-mn4ev5sx0cg8e6.16000051776348229.mp4", 
+        "https://down-ws-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0q-mmpv34uz3xmt2c.16000051775467200.mp4",
+        "https://down-ws-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0r-mmpz33igzrwj89.16000051775474050.mp4",          
+        "https://down-bs-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0g-mmibx529aknj3f.16000051775011237.mp4",
+        "https://down-bs-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0o-mmhfu4kaxx4x67.16000051774957281.mp4",
+        "https://down-tx-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va08-mocc1o5xpqmjd2.16000051779006786.mp4",
+        "https://down-bs-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0o-mmr3ko173g9420.16000051775542124.mp4",
+        "https://down-ws-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0k-mnso8c47d1j6d7.16000051777816698.mp4",
+        "https://down-tx-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0g-mn5i7qmwln294c.16000051776414109.mp4",
+        "https://down-ws-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0f-modrbg4pfegw15.16000051779092929.mp4",
+        "https://down-bs-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0l-mo2qgdvdmqdfe6.16000051778425628.mp4",
+        "https://down-ws-vn.vod.susercontent.com/api/v4/11110103/mms/vn-11110103-6va0h-mnbgobt8hvy8c5.16000051776774725.mp4",   
+    ],
+    
+    benefits: [
+        { icon: "🚀", text: "Super Fast Cooling" },
+        { icon: "🔋", text: "10-Hour Battery Backup" },
+        { icon: "🎒", text: "Easy to Carry / Portable" }
+    ],
+    specs: [
+        { key: "Brand", value: "Aecooly" },
+        { key: "Model", value: "Click 01" },
+        { key: "Color", value: "Beige/Green/Black" },
+        { key: "Battery capacity", value: "2000mAh" },
+        { key: "Charging time", value: "2.5 Hours Fast Charging" },
+        { key: "Usage time", value: "Low Speed: Up to 9 hours" },
+        { key: "Dimensions", value: " 75*61*32mm" },
+        { key: "Body material", value: "ABS+PC" },
+        { key: "Fan speeds", value: "3 Levels" },
+        { key: "Max rotation speed", value: "7000RPM" },
+        { key: "Warranty", value: "1 Year Brand Warranty" },        
+        { key: "Box Content", value: "Main Product, User Manual, Warranty Card, Charger Cable" }        
+    ],
+    offers: [
+        "10% Instant Discount with HDFC Bank Credit Cards.",
+        "5% Unlimited Cashback on Flycarts Partner Credit Card.",
+        "No Cost EMI on all leading banks."
+    ],
+reviews: [
+    { author: "Priya S.", rating: "4.9", text: "Excellent quality! Exceeded my expectations. Highly recommended.", days: 2, helpful: 24, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mlgcdfh1hb7l01.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp"] },
+    { author: "Rahul M.", rating: "4.9", text: "Best purchase of the year. Fast delivery and great packaging.", days: 1, helpful: 18, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn2ns9gbtvk55e.webp"] },
+    { author: "Anjali K.", rating: "4.9", text: "Very good product. Looks exactly like the picture. Love it!", days: 3, helpful: 12, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7k4328083c.webp"] },
+    { author: "Vikram R.", rating: "4.9", text: "Superb build quality. Impressed with performance. Worth every penny.", days: 2, helpful: 9, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mgbmrofb.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7f39jbwv91.webp"] },
+    { author: "Sneha D.", rating: "4.9", text: "I love it! The color is rich and it feels premium. Great for gifting.", days: 1, helpful: 15, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mogwgdcz7pjd04.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modhjylv7bbfda.webp"] },
+    { author: "Karan J.", rating: "4.9", text: "Amazing deal! Friends are asking for link. Super fast cooling.", days: 4, helpful: 21, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipiyd26q6a6e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipirmzype047.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipimwqlhxd24.webp"] },
+    { author: "Neha G.", rating: "4.9", text: "Perfect for summer. Battery lasts long. Very happy with purchase.", days: 5, helpful: 8, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z4lc08a.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp"] },
+    { author: "Amit P.", rating: "4.9", text: "Working great. Delivery on time. Thank you Flycarts!", days: 2, helpful: 11, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5g7qx21f.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn549prnwy6c72.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp"] },
+    { author: "Rohit B.", rating: "4.9", text: "Just wow! Trusted seller. I bought 2 more for family.", days: 1, helpful: 25, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7xesj5sff4.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modrc2xcfpqh2e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7k4328083c.webp"] },
+    { author: "Pooja T.", rating: "4.9", text: "My husband loved it. Perfect gift. Strong airflow, lightweight.", days: 3, helpful: 30, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp"] },
+    { author: "Arif K.", rating: "4.9", text: "Excellent cooling. Very quiet. I use it in office every day.", days: 1, helpful: 14, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mgbmrofb.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5g7qx21f.webp"] },
+    { author: "Shilpa M.", rating: "4.9", text: "Really good product. Battery backup is impressive. Fast delivery.", days: 2, helpful: 7, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z4lc08a.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn2ns9gbtvk55e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp"] },
+    { author: "Deepak S.", rating: "4.9", text: "Nice design, very portable. Perfect for travel. Must buy!", days: 4, helpful: 19, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mlgcdfh1hb7l01.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp"] },
+    { author: "Kavita R.", rating: "4.9", text: "Great value for money. Works as described. Very satisfied.", days: 3, helpful: 10, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipimwqlhxd24.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipiyd26q6a6e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp"] },
+    { author: "Manish G.", rating: "4.9", text: "Superb product. Lightweight and powerful. Best neck fan I've used.", days: 1, helpful: 16, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn549prnwy6c72.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modrc2xcfpqh2e.webp"] },
+    { author: "Swati P.", rating: "4.9", text: "Outstanding performance. 10 hours battery is real. Love it!", days: 2, helpful: 22, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp"] },
+    { author: "Rajesh K.", rating: "4.9", text: "Best product at this price. Packaging was excellent. Highly recommend.", days: 5, helpful: 13, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modhjylv7bbfda.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mogwgdcz7pjd04.webp"] },
+    { author: "Meena D.", rating: "4.9", text: "Very useful during summer. Looks stylish. Got many compliments.", days: 1, helpful: 6, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7f39jbwv91.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn2ns9gbtvk55e.webp"] },
+    { author: "Suresh B.", rating: "3.5", text: "Good product overall. Slight noise at highest speed but acceptable.", days: 3, helpful: 8, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7k4328083c.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp"] },
+    { author: "Anita W.", rating: "4.9", text: "Perfect for my morning walks. Lightweight and effective.", days: 2, helpful: 17, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5g7qx21f.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn549prnwy6c72.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp"] },
+    { author: "Gaurav T.", rating: "4.9", text: "Excellent buy. Using for 2 weeks, no issues. Battery life is great.", days: 4, helpful: 20, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z4lc08a.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp"] },
+    { author: "Ritu S.", rating: "4.9", text: "Quality is top-notch. Feels durable. I'm really impressed.", days: 1, helpful: 11, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mogwgdcz7pjd04.webp"] },
+    { author: "Sandeep M.", rating: "3.5", text: "Works fine. The three-speed modes are handy. Could be a bit cheaper.", days: 3, helpful: 9, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7xesj5sff4.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modrc2xcfpqh2e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7k4328083c.webp"] },
+    { author: "Pallavi N.", rating: "4.9", text: "My kid loves it. Very safe and easy to use. Happy with purchase.", days: 2, helpful: 14, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipiyd26q6a6e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipirmzype047.webp"] },
+    { author: "Dinesh C.", rating: "4.9", text: "Genuine product. Brand warranty included. Great peace of mind.", days: 5, helpful: 12, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipimwqlhxd24.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mlgcdfh1hb7l01.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp"] },
+    { author: "Sarika J.", rating: "4.9", text: "Looks premium, feels premium. Performance is exactly as advertised.", days: 1, helpful: 18, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp"] },
+    { author: "Alok R.", rating: "4.9", text: "Cool air instantly. Best for outdoor activities. Thanks Flycarts!", days: 4, helpful: 23, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mgbmrofb.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7f39jbwv91.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp"] },
+    { author: "Divya K.", rating: "3.5", text: "Perfect gift for my parents. They like it but the battery could last longer.", days: 2, helpful: 26, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5g7qx21f.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn549prnwy6c72.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp"] },
+    { author: "Naveen P.", rating: "4.9", text: "Excellent product. Fan speed is powerful. Highly recommended.", days: 3, helpful: 15, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp"] },
+    { author: "Rashmi G.", rating: "4.9", text: "Really convenient. I carry it everywhere. Great buy!", days: 1, helpful: 10, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mogwgdcz7pjd04.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modhjylv7bbfda.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mgbmrofb.webp"] },
+    { author: "Vivek S.", rating: "4.9", text: "No complaints. Just amazing. Ordering another one for my brother.", days: 2, helpful: 27, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z4lc08a.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp"] },
+    { author: "Lata M.", rating: "3.5", text: "Super cooling and lightweight. Wish the strap was a bit softer. Still nice!", days: 5, helpful: 8, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7xesj5sff4.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modrc2xcfpqh2e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7k4328083c.webp"] },
+    { author: "Prakash D.", rating: "4.9", text: "Very good product. Battery charges quickly. No issues so far.", days: 1, helpful: 13, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp"] },
+    { author: "Sunita H.", rating: "3.5", text: "Perfect for kitchen work. Fan feels a little slow at first, but overall okay.", days: 3, helpful: 19, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn2ns9gbtvk55e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp"] },
+    { author: "Mohan L.", rating: "4.9", text: "Fantastic product. Great airflow, silent operation. Best in class.", days: 2, helpful: 21, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipiyd26q6a6e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipirmzype047.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipimwqlhxd24.webp"] },
+    { author: "Komal B.", rating: "3.5", text: "Love the design. It looks expensive but charging time could be faster.", days: 4, helpful: 16, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mlgcdfh1hb7l01.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp"] },
+    { author: "Tarun W.", rating: "3.5", text: "Good product, but the lowest speed could be quieter. Otherwise fine.", days: 5, helpful: 5, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mgbmrofb.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7f39jbwv91.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp"] },
+    { author: "Rekha C.", rating: "4.9", text: "Excellent service and product. Genuine warranty. Very happy.", days: 1, helpful: 24, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5g7qx21f.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn549prnwy6c72.webp"] },
+    { author: "Harish K.", rating: "4.9", text: "Definitely 5-star product. Performance is solid. Thank you Flycarts!", days: 2, helpful: 28, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mogwgdcz7pjd04.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modhjylv7bbfda.webp"] },
+    { author: "Nisha J.", rating: "3.5", text: "My kids love playing with this fan. Very safe but battery drains if used non-stop.", days: 3, helpful: 11, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z4lc08a.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7k4328083c.webp"] },
+    { author: "Dilip S.", rating: "4.9", text: "Amazing quality. Feels premium. Definitely worth the price.", days: 1, helpful: 17, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp"] },
+    { author: "Shweta T.", rating: "3.5", text: "Best purchase this summer. Super cool air but motor gets warm after long use.", days: 4, helpful: 20, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn2ns9gbtvk55e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp"] },
+    { author: "Arun M.", rating: "4.9", text: "Works perfectly. The 180° rotation is very useful. Good job.", days: 2, helpful: 9, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-ml4t7xesj5sff4.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-modrc2xcfpqh2e.webp"] },
+    { author: "Kiran B.", rating: "4.9", text: "Super fast delivery and excellent product. Very happy with Flycarts.", days: 5, helpful: 22, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mlgcdfh1hb7l01.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnso2lb67jeu8b.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn4ew9mgbmrofb.webp"] },
+    { author: "Ramesh G.", rating: "3.5", text: "Great battery life. I can use it for hours but fan sometimes wobbles.", days: 3, helpful: 14, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5g7qx21f.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn549prnwy6c72.webp"] },
+    { author: "Anu P.", rating: "4.9", text: "Very good product. Lightweight and easy to carry. Recommended.", days: 1, helpful: 12, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmu9z5wrn476f9.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnmvzn8zas5f5c.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro6hh79f43.webp"] },
+    { author: "Sahil K.", rating: "1.5", text: "Okay product. Stopped working after 2 days. Not satisfied.", days: 6, helpful: 3, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipiyd26q6a6e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipirmzype047.webp"] },
+    { author: "Geeta R.", rating: "4.9", text: "Excellent cooling. Perfect gift for anyone. I'm very happy.", days: 2, helpful: 25, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mmipimwqlhxd24.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z4lc08a.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mocbg72z5zwgbc.webp"] },
+    { author: "Nitin D.", rating: "2.0", text: "Average product. The fan speed is lower than expected.", days: 4, helpful: 2, photos: ["https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnqzro5fjv9c27.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mn2ns9gbtvk55e.webp","https://down-vn.img.susercontent.com/file/vn-11134103-81ztc-mnberudnucxs50.webp"] }
+]
+};
+
+(function(){
+    const p = campaignProduct;
+    if(p.extraImages) p.images = p.images.concat(p.extraImages.filter(u=>u.trim()));
+    if(p.extraRealImages) p.realImages = p.realImages.concat(p.extraRealImages.filter(u=>u.trim()));
+})();
+
+function getBundleDetails(bundle) {
+    const oldPrice = campaignProduct.oldPrice;
+    const totalItems = bundle.qty || 1;
+    const totalPrice = bundle.totalPrice;
+    const totalMrp = oldPrice * totalItems;
+    const saving = totalMrp - totalPrice;
+    return { totalItems, totalPrice, totalMrp, saving };
+}
+
+function getVideoEmbedHTML(url, type, autoplay = true, controls = false) {
+    if (type === 'youtube') {
+        let vidId = null;
+        if (url.includes('/shorts/')) {
+            vidId = url.split('/shorts/')[1].split('?')[0];
+        } else {
+            const reg = /(?:v=|\/)([0-9A-Za-z_-]{11})(?:[?&]|$)/;
+            const match = url.match(reg);
+            vidId = match ? match[1] : null;
+        }
+        if (vidId) return `<iframe src="https://www.youtube-nocookie.com/embed/${vidId}?autoplay=${autoplay?1:0}&mute=1&loop=1&playlist=${vidId}&playsinline=1&controls=${controls?1:0}&modestbranding=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
+    if (type === 'vimeo') {
+        const vimeoId = url.split('/').pop();
+        if (vimeoId) return `<iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=${autoplay?1:0}&muted=1&loop=1&controls=${controls?1:0}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
+    if (type === 'mp4') return `<video src="${url}" autoplay=${autoplay} muted=${!controls} loop playsinline ${controls ? 'controls' : ''} style="width:100%;height:100%;object-fit:cover;"></video>`;
+    return '';
+}
+
+function checkPincode(){
+    const pincode = document.getElementById('pincodeInput').value.trim();
+    const resultDiv = document.getElementById('pincodeResult');
+    if (!/^\d{6}$/.test(pincode)) {
+        resultDiv.innerText = '⚠️ Please enter a valid 6-digit pincode.';
+        resultDiv.style.color = '#d32f2f';
+        return;
+    }
+    const invalidPincodes = ['000000','111111','123456','222222','333333','444444','555555','666666','777777','888888','999999','121212'];
+    if (invalidPincodes.includes(pincode)) {
+        resultDiv.innerText = 'Delivery not available for this invalid pincode';
+        resultDiv.style.color = '#d32f2f';
+        return;
+    }
+    const days = Math.floor(Math.random()*3)+3;
+    resultDiv.innerHTML = `✅ Delivery available in ${pincode} – Estimated delivery in <b>${days}-${days+1} days</b>.`;
+    resultDiv.style.color = '#2e7d32';
+    if (document.getElementById('checkoutPage').style.display === 'block') {
+        document.getElementById('custPincode').value = pincode;
+    }
+}
+
+function autoCheckPincode() {
+    const pincode = document.getElementById('custPincode').value.trim();
+    if (/^\d{6}$/.test(pincode)) {
+        checkPincodeSilent(pincode);
+    }
+}
+
+function checkPincodeSilent(pincode) {
+    const invalidPincodes = ['000000','111111','123456','222222','333333','444444','555555','666666','777777','888888','999999','121212'];
+    return /^\d{6}$/.test(pincode) && !invalidPincodes.includes(pincode);
+}
+
+function getOptimalPrice(qty) {
+    const packs = [
+        { size: 1, price: 599 },
+        { size: 2, price: 849 },
+        { size: 3, price: 999 }
+    ];
+    const dp = new Array(qty + 1).fill(Infinity);
+    dp[0] = 0;
+    for (let i = 1; i <= qty; i++) {
+        for (const pack of packs) {
+            if (i >= pack.size) {
+                dp[i] = Math.min(dp[i], dp[i - pack.size] + pack.price);
+            }
+        }
+    }
+    return dp[qty] !== Infinity ? dp[qty] : qty * 599;
+}
+
+function recalcCartItem(item, product) {
+    const qty = item.qty || 1;
+    const optimalTotal = getOptimalPrice(qty);
+    item.totalPrice = optimalTotal;
+    item.meta = item.meta || {};
+    item.meta.totalPrice = optimalTotal;
+    item.old = product.oldPrice;
+}
+
+function addToCart(product, qty, totalPrice, meta) {
+    const bundleIndex = (meta && meta.bundleIndex !== undefined) ? meta.bundleIndex : 0;
+    const existing = cart.find(i => i.id === product.id && i.bundleIndex === bundleIndex);
+    if (existing) {
+        existing.qty = (existing.qty || 1) + qty;
+        existing.meta = { ...existing.meta, ...meta };
+        recalcCartItem(existing, product);
+        showToast(`✅ Quantity updated to ${existing.qty}`);
+    } else {
+        const cartItem = {
+            ...product,
+            qty,
+            price: product.price,
+            totalPrice,
+            imgs: product.images || [],
+            old: product.oldPrice,
+            off: product.offPercent + '% OFF',
+            rating: product.rating,
+            freeDelivery: true,
+            bestSeller: product.bestSeller,
+            meta: { ...meta, bundleIndex },
+            bundleIndex: bundleIndex
+        };
+        recalcCartItem(cartItem, product);
+        cart.push(cartItem);
+        showToast(`✅ Added to cart!`);
+    }
+    fbqTrack('InitiateCheckout', { content_name: product.name, content_category: 'Neck Fan', value: totalPrice || product.price, currency: 'INR' });
+    saveCart();
+}
+
+function saveCart() { localStorage.setItem('FlycartsCart', JSON.stringify(cart)); updateCartCount(); }
+function updateCartCount() { document.getElementById('cartCount').innerText = cart.reduce((s,i) => s + (i.qty||1), 0); }
+
+function changeCartQty(index, delta) {
+    const item = cart[index];
+    const newQty = (item.qty || 1) + delta;
+    if (newQty < 1) { removeFromCart(index); return; }
+    item.qty = newQty;
+    recalcCartItem(item, campaignProduct);
+    saveCart(); renderCart();
+}
+function removeFromCart(index) { if(confirm('Remove item?')) { cart.splice(index,1); saveCart(); renderCart(); } }
+function showToast(msg, duration=2500) {
+    const el = document.getElementById('globalToast');
+    el.innerText = msg; el.style.display='block';
+    setTimeout(()=> el.style.display='none', duration);
+}
+function openPage(id) { document.getElementById(id).style.display='block'; window.scrollTo(0,0); document.body.style.overflow='hidden'; }
+function closePage(id) { document.getElementById(id).style.display='none'; document.body.style.overflow='auto'; }
+function openCart() { renderCart(); openPage('cartPage'); }
+
+function renderCart() {
+    cart.forEach(item => recalcCartItem(item, campaignProduct));
+    const container = document.getElementById('cartItems');
+    document.getElementById('cartPageCount').innerText = cart.length;
+    if(!cart.length) {
+        container.innerHTML = `<div class="empty-cart"><i class="fa fa-shopping-cart"></i><p style="font-size:20px;font-weight:600;">Your cart is empty!</p><small>Add items to it now.</small></div>`;
+        return;
+    }
+    container.innerHTML = cart.map((item, idx) => {
+        const lineTotal = item.totalPrice;
+        return `<div class="cart-item">
+            <img src="${item.imgs?.[0] || ''}" alt="${item.name}">
+            <div class="cart-item-info">
+                <h4 style="font-size:14px; font-weight:600;">${item.name}</h4>
+                <div style="display:flex; align-items:center; gap:8px; margin:4px 0;">
+                    <span style="font-weight:700;">₹${item.price.toLocaleString('en-IN')}</span>
+                    <span style="color:var(--text-light); text-decoration:line-through;">₹${item.old.toLocaleString('en-IN')}</span>
+                    <span style="color:var(--success);">${item.off}</span>
+                </div>
+                <div class="cart-qty">
+                    <button onclick="window._changeCartQty(${idx},-1)">−</button>
+                    <span>${item.qty||1}</span>
+                    <button onclick="window._changeCartQty(${idx},1)">+</button>
+                </div>
+                <div style="font-weight:700; margin-top:4px;">Total: ₹${lineTotal.toLocaleString('en-IN')}</div>
+            </div>
+            <button class="remove-btn" onclick="window._removeFromCart(${idx})">REMOVE</button>
+        </div>`;
+    }).join('');
+    let total = cart.reduce((s,i) => s + (i.totalPrice || 0), 0);
+    container.innerHTML += `<div class="cart-summary">
+        <div style="display:flex;justify-content:space-between;margin-bottom:12px;"><span>Subtotal</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:12px;"><span>Delivery</span><span style="color:var(--success);">FREE</span></div>
+        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:17px;border-top:2px dashed var(--border);padding-top:12px;"><span>Grand Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+    </div>`;
+}
+
+function openCheckout() {
+    if(!cart.length){ alert('Cart empty!'); return; }
+    codOrderSelected = false;
+    document.getElementById('txnInstruction').innerText = 'After successful UPI payment, enter your 12-digit Transaction ID to verify and place the order.';
+    renderCheckoutItems();
+    updateCodUI();
+    closePage('cartPage');
+    openPage('checkoutPage');
+    document.getElementById('mobileError').classList.remove('show');
+}
+
+function checkoutChangeQty(index, delta) {
+    if(index<0||index>=cart.length) return;
+    const item = cart[index];
+    const newQty = (item.qty||1)+delta;
+    if(newQty<1){ cart.splice(index,1); saveCart(); renderCheckoutItems(); updateCodUI(); if(cart.length===0){ closePage('checkoutPage'); } return; }
+    item.qty = newQty;
+    recalcCartItem(item, campaignProduct);
+    saveCart(); renderCheckoutItems();
+    updateCodUI();
+}
+
+function renderCheckoutItems() {
+    const container = document.getElementById('checkoutItemsList');
+    if(!cart.length){ container.innerHTML='<p style="color:var(--text-light);">Your cart is empty.</p>'; return; }
+    container.innerHTML = cart.map((item,idx)=>{
+        const lineTotal = item.totalPrice;
+        return `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:10px;">
+            <img src="${item.imgs?.[0] || ''}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+            <div style="flex:1;"><p style="font-size:14px;font-weight:500;margin:0 0 4px 0;">${item.name}</p>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span style="font-weight:700;">₹${item.price.toLocaleString('en-IN')}</span>
+                <span style="font-size:12px;color:var(--text-light);text-decoration:line-through;">₹${item.old.toLocaleString('en-IN')}</span>
+                <span style="font-size:12px;color:var(--success);">${item.off}</span>
+                <div class="cart-qty" style="margin:0;"><button onclick="window._checkoutChangeQty(${idx},-1)">−</button><span>${item.qty||1}</span><button onclick="window._checkoutChangeQty(${idx},1)">+</button></div>
+                <span style="font-weight:700;margin-left:auto;">₹${lineTotal.toLocaleString('en-IN')}</span>
+            </div></div></div>`;
+    }).join('');
+    updateCheckoutTotals();
+}
+
+function updateCheckoutTotals() {
+    let total = 0, oldTotal = 0, bundleSaving = 0;
+    cart.forEach(item => {
+        const qty = item.qty||1;
+        const lineTotal = item.totalPrice;
+        total += lineTotal;
+        oldTotal += item.old * qty;
+        bundleSaving += (item.old * qty) - lineTotal;
+    });
+    document.getElementById('pMrp').innerText = '₹'+oldTotal.toLocaleString('en-IN');
+    const row = document.getElementById('bundleSavingRow');
+    const el = document.getElementById('pBundleSaving');
+    if (bundleSaving > 0) {
+        row.style.display = 'flex';
+        el.innerText = bundleSaving.toLocaleString('en-IN');
+    } else {
+        row.style.display = 'none';
+    }
+    document.getElementById('pTotal').innerText = '₹'+total.toLocaleString('en-IN');
+    updateQR(total);
+}
+
+function updateQR(amount) {
+    document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount}&cu=INR`)}`;
+}
+
+function openOtherUPI() {
+    const total = cart.reduce((s,i)=> s + (i.totalPrice || 0), 0);
+    window.location.href = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${total}&tn=${encodeURIComponent('Order Payment')}&cu=INR`;
+}
+function openPaytm() {
+    const total = cart.reduce((s,i)=> s + (i.totalPrice || 0), 0);
+    const upiURL = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${total}&tn=${encodeURIComponent('Order Payment')}&cu=INR`;
+    if (/Android/i.test(navigator.userAgent)) {
+        window.location.href = `intent://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${total}&cu=INR&mode=02#Intent;scheme=upi;package=net.one97.paytm;end`;
+        setTimeout(() => { window.location.href = upiURL; }, 1500);
+    } else window.location.href = upiURL;
+}
+
+function handleCodClick() {
+    const totalItems = cart.reduce((s, item) => s + (item.qty || 1), 0);
+    if (totalItems < 2) {
+        alert('⚠️ You have selected only 1 piece.\nFull online payment is required for single orders.\nOrder 2 or more to avail Cash on Delivery (60% advance).');
+        return;
+    }
+    const total = cart.reduce((s,i)=> s + (i.totalPrice || 0), 0);
+    const partialAmount = Math.round(total * 0.6);
+    window.location.href = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${partialAmount}&tn=${encodeURIComponent('Partial 60% Payment for COD')}&cu=INR`;
+    codOrderSelected = true;
+    document.getElementById('txnInstruction').innerText = 'You have chosen COD with 60% advance payment. After completing the UPI payment, enter the 12-digit Transaction ID below.';
+}
+
+function updateCodUI() {
+    const totalItems = cart.reduce((s, item) => s + (item.qty || 1), 0);
+    const note = document.getElementById('codNote');
+    const btn = document.getElementById('codButton');
+    if (totalItems < 2) {
+        note.textContent = '⚠️ Only 1 piece selected. Full online payment required. (Order 2+ for COD)';
+        note.className = 'fc-cod-note';
+        if (btn) btn.style.opacity = '0.7';
+    } else {
+        note.textContent = '✅ Eligible for Cash on Delivery – Pay 60% now, 40% at doorstep.';
+        note.className = 'fc-cod-note green';
+        if (btn) btn.style.opacity = '1';
+    }
+}
+
+function showProcessingOverlay() {
+    const overlay = document.getElementById('flProcessingOverlay');
+    const statusEl = document.getElementById('flProcStatus');
+    const steps = ['Connecting to secure gateway...','Verifying 12-digit Transaction ID...','Securing order allocation...'];
+    let step = 0;
+    if (overlay) {
+        overlay.classList.add('active');
+        statusEl.textContent = steps[0];
+        const interval = setInterval(() => {
+            step++;
+            if (step < steps.length) statusEl.textContent = steps[step];
+            else clearInterval(interval);
+        }, 1200);
+        return new Promise(resolve => setTimeout(() => { overlay.classList.remove('active'); resolve(); }, 3500));
+    }
+    return Promise.resolve();
+}
+
+function confirmOrder() {
+    const name = document.getElementById('custName').value.trim();
+    const mobile = document.getElementById('custMobile').value.trim();
+    const pincode = document.getElementById('custPincode').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+    const city = document.getElementById('custCity').value.trim();
+    const state = document.getElementById('custState').value.trim();
+    const txnId = document.getElementById('txnId').value.trim();
+    
+    // Clear previous errors
+    const fields = {
+        custName: name,
+        custMobile: mobile,
+        custPincode: pincode,
+        custAddress: address,
+        custCity: city,
+        custState: state,
+        txnId: txnId
+    };
+    Object.keys(fields).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.remove('input-error', 'shake');
+        }
+    });
+    const mobileErrorEl = document.getElementById('mobileError');
+    mobileErrorEl.classList.remove('show');
+    
+    // Validation with shake and red border
+    let isValid = true;
+    let firstInvalid = null;
+    
+    // Name
+    if (!name) {
+        markInvalid('custName');
+        if (!firstInvalid) firstInvalid = 'custName';
+        isValid = false;
+    }
+    // Mobile
+    if (!/^(0[6-9]\d{9}|[6-9]\d{9})$/.test(mobile)) {
+        markInvalid('custMobile');
+        mobileErrorEl.classList.add('show');
+        if (!firstInvalid) firstInvalid = 'custMobile';
+        isValid = false;
+    }
+    // Pincode
+    if (!/^\d{6}$/.test(pincode) || !checkPincodeSilent(pincode)) {
+        markInvalid('custPincode');
+        if (!firstInvalid) firstInvalid = 'custPincode';
+        isValid = false;
+    }
+    // Address
+    if (!address) {
+        markInvalid('custAddress');
+        if (!firstInvalid) firstInvalid = 'custAddress';
+        isValid = false;
+    }
+    // City
+    if (!city) {
+        markInvalid('custCity');
+        if (!firstInvalid) firstInvalid = 'custCity';
+        isValid = false;
+    }
+    // State
+    if (!state) {
+        markInvalid('custState');
+        if (!firstInvalid) firstInvalid = 'custState';
+        isValid = false;
+    }
+    // Txn ID
+    if (!/^\d{12}$/.test(txnId)) {
+        markInvalid('txnId');
+        if (!firstInvalid) firstInvalid = 'txnId';
+        isValid = false;
+    }
+    
+    if (!isValid) {
+        if (firstInvalid) {
+            document.getElementById(firstInvalid).focus();
+            // Add shake after a tiny delay
+            setTimeout(() => document.getElementById(firstInvalid).classList.add('shake'), 10);
+        }
+        return false;
+    }
+
+    // All good, proceed
+    let totalPaid = 0, totalMrp = 0, totalItems = 0;
+    const itemList = cart.map(item => {
+        const qty = item.qty || 1;
+        const linePaid = item.totalPrice;
+        totalPaid += linePaid;
+        totalMrp += item.old * qty;
+        totalItems += qty;
+        return { name: item.name, qty, price: item.price, old: item.old, paid: linePaid };
+    });
+    const totalSaved = totalMrp - totalPaid;
+    const offPercent = totalMrp > 0 ? Math.round((totalSaved / totalMrp) * 100) : 0;
+    const deliveryDays = Math.floor(Math.random()*4)+3;
+    const orderId = 'FLY-'+Date.now().toString(36).toUpperCase()+Math.random().toString(36).substring(2,6).toUpperCase();
+
+    const trackData = {
+        orderId, timestamp: Date.now(), items: itemList, totalMrp, totalPaid, totalSaved, offPercent,
+        deliveryDays, txnId, cod: codOrderSelected,
+        productImage: cart[0]?.imgs?.[0] || '',
+        productName: itemList.map(i => `${i.name} x${i.qty}`).join(', ')
+    };
+    if (codOrderSelected) {
+        trackData.partialPaid = Math.round(totalPaid * 0.6);
+        trackData.dueAmount = totalPaid - trackData.partialPaid;
+    }
+    saveOrderForTracking(trackData);
+    cart = [];
+    saveCart();
+    showProcessingOverlay().then(() => triggerOrderSuccessAnimation());
+    return true;
+}
+
+// Helper to mark field as invalid
+function markInvalid(id) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.classList.add('input-error');
+    }
+}
+
+function selectBundle(index) {
+    selectedBundleIndex = index;
+    document.querySelectorAll('.bundle-card').forEach(c => c.classList.remove('active'));
+    document.querySelector(`.bundle-card[data-index="${index}"]`).classList.add('active');
+}
+
+function renderBundleOptions() {
+    const container = document.getElementById('bundleContainer');
+    let html = '';
+    campaignProduct.bundles.forEach((bundle, idx) => {
+        const d = getBundleDetails(bundle);
+        const active = idx === selectedBundleIndex ? ' active' : '';
+        html += `<div class="bundle-card${active}" data-index="${idx}" onclick="selectBundle(${idx})">
+            <div class="bundle-label">${bundle.label}</div>
+            <div class="bundle-items">${d.totalItems} items</div>
+            <div class="bundle-price">₹${d.totalPrice.toLocaleString('en-IN')}</div>
+            <div class="bundle-save">Save ₹${d.saving.toLocaleString('en-IN')}</div>
+            ${bundle.badge ? `<div class="bundle-badge">${bundle.badge}</div>` : ''}
+        </div>`;
+    });
+    container.innerHTML = html;
+    selectBundle(0);
+}
+
+window.buyNowCampaign = function() {
+    if (orderActionLocked) return;
+    orderActionLocked = true;
+    const btn = document.getElementById('orderPlaceBtn');
+    btn.classList.add('disabled');
+    const bundle = campaignProduct.bundles[selectedBundleIndex];
+    const cartProduct = {
+        id: campaignProduct.id, name: campaignProduct.name, price: campaignProduct.price,
+        oldPrice: campaignProduct.oldPrice, offPercent: campaignProduct.offPercent,
+        images: campaignProduct.images, rating: campaignProduct.rating, ratingCount: campaignProduct.ratingCount,
+        emi: campaignProduct.emi, soldCount: campaignProduct.soldLast24h, freeDelivery: true, bestSeller: campaignProduct.bestSeller
+    };
+    const meta = {
+        packSize: bundle.packSize,
+        packPrice: bundle.totalPrice,
+        bundleIndex: selectedBundleIndex
+    };
+    addToCart(cartProduct, bundle.qty || 1, bundle.totalPrice, meta);
+    openCheckout();
+    setTimeout(() => {
+        orderActionLocked = false;
+        btn.classList.remove('disabled');
+    }, 2000);
+};
+
+function orderPlaceAction() {
+    if (orderActionLocked) return;
+    const checkoutPage = document.getElementById('checkoutPage');
+    if (checkoutPage.style.display === 'block') {
+        orderActionLocked = true;
+        const btn = document.getElementById('orderPlaceBtn');
+        btn.classList.add('disabled');
+        const success = confirmOrder();
+        if (!success) {
+            orderActionLocked = false;
+            btn.classList.remove('disabled');
+        } else {
+            setTimeout(() => {
+                orderActionLocked = false;
+                btn.classList.remove('disabled');
+            }, 2000);
+        }
+    } else {
+        buyNowCampaign();
+    }
+}
+
+// ========== SLIDER, REVIEWS, ETC. ==========
+function goToCampSlide(index) {
+    const total = campaignProduct.images.length;
+    campCurrentSlide = (index + total) % total;
+    document.getElementById('campSliderContainer').style.transform = `translateX(-${campCurrentSlide * 100}%)`;
+    document.querySelectorAll('#campDotsContainer .detail-dot').forEach((d,i) => d.classList.toggle('active', i===campCurrentSlide));
+}
+function slideCampImg(dir) { goToCampSlide(campCurrentSlide + dir); }
+
+let autoSlideInterval;
+function startAutoSlide() {
+    if (autoSlideInterval) clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => slideCampImg(1), 3000);
+}
+function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+}
+
+// ========== TITLE TOGGLE (CLICK) ==========
+function toggleTitleClick() {
+    const titleEl = document.getElementById('campTitle');
+    if (titleEl.classList.contains('show-full')) {
+        titleEl.classList.remove('show-full');
+    } else {
+        titleEl.classList.add('show-full');
+    }
+}
+
+// ========== VIDEO SECTION LOGIC ==========
+let videoObserver;
+let allVideoCards = [];
+let videosExpanded = false;
+
+function toggleVideos() {
+    const videoGrid = document.getElementById('campVideoGrid');
+    const viewMoreBtn = document.getElementById('videoViewMoreBtn');
+    const cards = videoGrid.querySelectorAll('.video-card');
+    if (videosExpanded) {
+        // Collapse to first 4
+        cards.forEach((card, idx) => {
+            if (idx >= 4) card.style.display = 'none';
+        });
+        viewMoreBtn.innerHTML = 'View More <i class="fa fa-chevron-down"></i>';
+        videosExpanded = false;
+    } else {
+        // Show all
+        cards.forEach(card => card.style.display = '');
+        if (videoObserver) {
+            cards.forEach((card, idx) => {
+                if (idx >= 4) videoObserver.observe(card);
+            });
+        }
+        viewMoreBtn.innerHTML = 'View Less <i class="fa fa-chevron-up"></i>';
+        videosExpanded = true;
+    }
+}
+
+function openVideoLightbox(videoUrl, videoType) {
+    const overlay = document.getElementById('videoLightboxOverlay');
+    const container = document.getElementById('videoLightboxContainer');
+    const embedHTML = getVideoEmbedHTML(videoUrl, videoType, true, true);
+    container.innerHTML = embedHTML;
+    overlay.classList.add('show');
+}
+function closeVideoLightbox() {
+    document.getElementById('videoLightboxOverlay').classList.remove('show');
+    document.getElementById('videoLightboxContainer').innerHTML = '';
+}
+
+function initCampaignPage() {
+    const p = campaignProduct;
+    const titleEl = document.getElementById('campTitle');
+    const fullTitle = p.name;
+    // Truncate to shorter length for mobile (35 chars)
+    const maxChars = 35;
+    let shortTitle = fullTitle.substring(0, maxChars).trim();
+    if (fullTitle.length > maxChars) {
+        const lastSpace = shortTitle.lastIndexOf(' ');
+        if (lastSpace > 0) shortTitle = shortTitle.substring(0, lastSpace).trim();
+        shortTitle += '...';
+    } else {
+        shortTitle = fullTitle;
+    }
+    if (fullTitle.length > maxChars) {
+        titleEl.innerHTML = `<span class="title-short">${shortTitle}</span><span class="title-full">${fullTitle}</span>`;
+    } else {
+        titleEl.textContent = fullTitle;
+    }
+
+    document.getElementById('campDesc').innerText = p.description || '';
+    document.getElementById('campPrice').innerText = '₹' + p.price.toLocaleString('en-IN');
+    document.getElementById('campOld').innerText = '₹' + p.oldPrice.toLocaleString('en-IN');
+    document.getElementById('campOff').innerText = p.offPercent + '% OFF';
+    document.getElementById('campRating').innerText = p.rating + ' ★';
+    document.getElementById('campRatingCount').innerText = '(' + p.ratingCount.toLocaleString('en-IN') + ' Ratings)';
+    document.getElementById('campEmiAmount').innerText = p.emi;
+    document.getElementById('campSoldCountNum').innerText = p.soldLast24h;
+    document.getElementById('campBestSellerBadge').style.display = p.bestSeller ? 'flex' : 'none';
+
+    document.getElementById('benefitList').innerHTML = p.benefits.map(b => `<li><span>${b.icon}</span> ${b.text}</li>`).join('');
+
+    lightboxImages = p.images;
+    const slider = document.getElementById('campSliderContainer');
+    slider.innerHTML = p.images.map((src, idx) => `<img src="${src}" class="detail-slide" alt="" onclick="openLightbox(${idx})">`).join('');
+    const dots = document.getElementById('campDotsContainer');
+    dots.innerHTML = ''; campCurrentSlide = 0;
+    if(p.images.length > 1) {
+        p.images.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.className = 'detail-dot' + (idx===0?' active':'');
+            dot.onclick = () => goToCampSlide(idx);
+            dots.appendChild(dot);
+        });
+        startAutoSlide();
+    }
+
+    const sliderWrapper = document.getElementById('heroSliderWrapper');
+    let touchStartX = 0, touchEndX = 0;
+    sliderWrapper.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoSlide();
+    }, {passive: true});
+    sliderWrapper.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoSlide();
+    }, {passive: true});
+    function handleSwipe() {
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 30) {
+            if (diff > 0) slideCampImg(1);
+            else slideCampImg(-1);
+        }
+    }
+
+    const realGrid = document.getElementById('realImageGrid');
+    const viewMoreBtn = document.getElementById('viewMoreRealBtn');
+    if (p.realImages.length) {
+        realGrid.innerHTML = p.realImages.map((src, idx) => `<div class="real-img-card" onclick="openLightboxFromReal(${idx})"><img src="${src}" alt="Real Image ${idx+1}"></div>`).join('');
+        viewMoreBtn.style.display = p.realImages.length > 4 ? 'block' : 'none';
+    }
+
+    document.getElementById('campOfferList').innerHTML = p.offers.map(o=>`<div class="offer-item"><i class="fa fa-check-circle" style="color:var(--success);"></i> ${o}</div>`).join('');
+    document.getElementById('campSpecTable').innerHTML = p.specs.map(s=>`<tr><td>${s.key}</td><td>${s.value}</td></tr>`).join('');
+
+    const videoSection = document.getElementById('campVideoSection'), videoGrid = document.getElementById('campVideoGrid');
+    const allVideos = [];
+    if(p.youtubeVideos) p.youtubeVideos.forEach(url => allVideos.push({url, type:'youtube'}));
+    if(p.vimeoVideos) p.vimeoVideos.forEach(url => allVideos.push({url, type:'vimeo'}));
+    if(p.mp4Videos) p.mp4Videos.forEach(url => allVideos.push({url, type:'mp4'}));
+    
+    if(allVideos.length) {
+        videoSection.style.display='block';
+        videoGrid.innerHTML = allVideos.map((v, idx) => `
+            <div class="video-card" data-video-url="${v.url}" data-video-type="${v.type}">
+                <div class="vid-title" style="display:none;">Video ${idx+1}</div>
+                <div class="vid-container"></div>
+            </div>
+        `).join('');
+        allVideoCards = Array.from(videoGrid.querySelectorAll('.video-card'));
+        
+        allVideoCards.forEach((card, idx) => {
+            if (idx >= 4) card.style.display = 'none';
+            card.addEventListener('click', function(e) {
+                const url = this.dataset.videoUrl;
+                const type = this.dataset.videoType;
+                openVideoLightbox(url, type);
+            });
+        });
+        
+        const videoViewMoreBtn = document.getElementById('videoViewMoreBtn');
+        if (allVideos.length > 4) {
+            videoViewMoreBtn.style.display = 'block';
+            videoViewMoreBtn.innerHTML = 'View More <i class="fa fa-chevron-down"></i>';
+        } else {
+            videoViewMoreBtn.style.display = 'none';
+        }
+        
+        videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const card = entry.target;
+                    const container = card.querySelector('.vid-container');
+                    if(container && !container.children.length) {
+                        const embed = getVideoEmbedHTML(card.dataset.videoUrl, card.dataset.videoType, true);
+                        if(embed) container.innerHTML = embed;
+                    }
+                    videoObserver.unobserve(card);
+                }
+            });
+        }, {rootMargin: '200px', threshold: 0});
+        
+        allVideoCards.forEach((card, idx) => {
+            if (idx < 4) videoObserver.observe(card);
+        });
+    } else {
+        videoSection.style.display='none';
+    }
+
+    renderBundleOptions();
+    renderCampRatingSummary(p.ratingCount);
+    renderLimitedCampReviews(p.reviews);
+}
+
+function openLightbox(index) { lightboxImages = campaignProduct.images; lightboxCurrent = index; document.getElementById('lightboxImg').src = lightboxImages[lightboxCurrent]; document.getElementById('lightboxOverlay').classList.add('show'); }
+function openLightboxFromReal(index) { lightboxImages = campaignProduct.realImages; lightboxCurrent = index; document.getElementById('lightboxImg').src = lightboxImages[lightboxCurrent]; document.getElementById('lightboxOverlay').classList.add('show'); }
+function closeLightbox() { document.getElementById('lightboxOverlay').classList.remove('show'); resetLightboxTransform(); }
+function lightboxNav(d) { lightboxCurrent = (lightboxCurrent + d + lightboxImages.length) % lightboxImages.length; document.getElementById('lightboxImg').src = lightboxImages[lightboxCurrent]; resetLightboxTransform(); }
+
+// Pinch-zoom & swipe for lightbox image
+let initialDistance = 0;
+let initialScale = 1;
+let currentScale = 1;
+const imgEl = document.getElementById('lightboxImg');
+
+function resetLightboxTransform() {
+    currentScale = 1;
+    imgEl.style.transform = 'scale(1)';
+    imgEl.style.transformOrigin = 'center center';
+}
+
+function getDistance(touches) {
+    if (touches.length < 2) return 0;
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx*dx + dy*dy);
+}
+
+document.getElementById('lightboxOverlay').addEventListener('touchstart', function(e) {
+    if (e.touches.length === 2) {
+        initialDistance = getDistance(e.touches);
+        initialScale = currentScale;
+    }
+}, {passive: false});
+
+document.getElementById('lightboxOverlay').addEventListener('touchmove', function(e) {
+    if (e.touches.length === 2) {
+        e.preventDefault();
+        const dist = getDistance(e.touches);
+        if (initialDistance > 0) {
+            const scale = initialScale * (dist / initialDistance);
+            currentScale = Math.min(Math.max(scale, 1), 4);
+            imgEl.style.transform = `scale(${currentScale})`;
+        }
+    }
+}, {passive: false});
+
+document.getElementById('lightboxOverlay').addEventListener('touchend', function(e) {
+    if (e.touches.length < 2) {
+        initialDistance = 0;
+    }
+});
+
+// Swipe navigation for single touch on lightbox
+let startX = 0;
+document.getElementById('lightboxOverlay').addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+        startX = e.touches[0].clientX;
+    }
+});
+document.getElementById('lightboxOverlay').addEventListener('touchend', function(e) {
+    if (e.touches.length === 0) {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) lightboxNav(1);
+            else lightboxNav(-1);
+        }
+    }
+});
+
+// ========== REALISTIC RATING DISTRIBUTION ==========
+function generateRealisticRatingDistribution(total) {
+    const fiveStar = Math.round(total * 0.90);
+    const fourStar = Math.round(total * 0.07);
+    const threeStar = Math.round(total * 0.02);
+    const twoStar = Math.round(total * 0.005);
+    const oneStar = total - fiveStar - fourStar - threeStar - twoStar;
+    return {5: fiveStar, 4: fourStar, 3: threeStar, 2: twoStar >= 0 ? twoStar : 0, 1: oneStar >= 0 ? oneStar : 0};
+}
+
+function renderCampRatingSummary(totalCount) {
+    const realisticTotal = Math.floor(Math.random() * 2001) + 4000;
+    const counts = generateRealisticRatingDistribution(realisticTotal);
+    const avg = ((5*counts[5] + 4*counts[4] + 3*counts[3] + 2*counts[2] + 1*counts[1]) / realisticTotal).toFixed(1);
+    document.getElementById('campRating').innerText = avg + ' ★';
+    document.getElementById('campRatingCount').innerText = '(' + realisticTotal.toLocaleString('en-IN') + ' Ratings)';
+    document.getElementById('campRatingOverall').innerHTML = `
+        <div class="rating-overall">
+            <div style="text-align:center;">
+                <div class="rating-number">${avg}</div>
+                <div class="rating-stars">★★★★★</div>
+                <div class="rating-text">${realisticTotal.toLocaleString('en-IN')} Ratings & ${realisticTotal.toLocaleString('en-IN')} Reviews</div>
+            </div>
+            <div class="rating-bars">
+                ${[5,4,3,2,1].map(star=>{
+                    const cnt = counts[star]||0;
+                    const pct = (cnt/realisticTotal)*100;
+                    return `<div class="bar-row"><span class="bar-label">${star}★</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div><span class="bar-count">${cnt.toLocaleString('en-IN')}</span></div>`;
+                }).join('')}
+            </div>
+        </div>`;
+}
+
+function renderLimitedCampReviews(reviews) {
+    const sorted = [...reviews].sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating));
+    const container = document.getElementById('campLimitedReviews');
+    container.innerHTML = sorted.slice(0,5).map(r=>createCampReviewHTML(r)).join('');
+    document.getElementById('campViewMoreBtn').style.display = reviews.length>5 ? 'block' : 'none';
+    document.getElementById('campAllReviews').style.display = 'none';
+    campReviewsExpanded = false;
+    document.getElementById('campViewMoreBtn').innerHTML = 'View More Reviews <i class="fa fa-chevron-down"></i>';
+}
+function toggleCampReviews() {
+    const limited = document.getElementById('campLimitedReviews');
+    const all = document.getElementById('campAllReviews');
+    const btn = document.getElementById('campViewMoreBtn');
+    if (campReviewsExpanded) {
+        all.style.display = 'none'; limited.style.display = 'block';
+        btn.innerHTML = 'View More Reviews <i class="fa fa-chevron-down"></i>';
+        campReviewsExpanded = false;
+    } else {
+        if (!all.innerHTML) all.innerHTML = campaignProduct.reviews.map(r=>createCampReviewHTML(r)).join('');
+        limited.style.display = 'none'; all.style.display = 'block';
+        btn.innerHTML = 'View Less <i class="fa fa-chevron-up"></i>';
+        campReviewsExpanded = true;
+    }
+}
+function createCampReviewHTML(r) {
+    const loc = locations[Math.floor(Math.random() * locations.length)];
+    let photosHTML = '';
+    if (r.photos && r.photos.length) {
+        photosHTML = `<div class="review-photos">` + r.photos.map((src, idx) => `<img src="${src}" class="review-photo-thumb" alt="Review photo" data-photos='${JSON.stringify(r.photos)}' data-index="${idx}" onclick="openLightboxFromReview(this)">`).join('') + `</div>`;
+    }
+    return `<div class="review-box">
+        <div class="review-header">
+            <span class="stars" onclick="thankForFeedback(this)">${r.rating} ★</span>
+            <span style="font-weight:600;">${r.author}</span>
+            <span class="review-location"><i class="fa fa-map-marker-alt"></i> ${loc}</span>
+        </div>
+        <div class="review-text">${r.text}</div>
+        ${photosHTML}
+        <div class="review-author">${r.days} day${r.days>1?'s':''} ago</div>
+        <div class="review-actions">
+            <span onclick="markHelpful(this)"><i class="fa fa-thumbs-up"></i> Helpful (${r.helpful})</span>
+            <span onclick="reportReview(this)"><i class="fa fa-flag"></i> Report</span>
+        </div>
+    </div>`;
+}
+function openLightboxFromReview(el) {
+    const photos = JSON.parse(el.dataset.photos);
+    const index = parseInt(el.dataset.index);
+    lightboxImages = photos;
+    lightboxCurrent = index;
+    document.getElementById('lightboxImg').src = lightboxImages[lightboxCurrent];
+    document.getElementById('lightboxOverlay').classList.add('show');
+    resetLightboxTransform();
+}
+function thankForFeedback(el) { showToast('🌟 Thank you for your feedback!'); }
+function markHelpful(el) { showToast('👍 Thanks for your feedback!'); }
+function reportReview(el) { showToast('🚩 Reported. We will review it.'); }
+function toggleRealImages() {
+    const grid = document.getElementById('realImageGrid');
+    const btn = document.getElementById('viewMoreRealBtn');
+    if (grid.classList.contains('show-all')) {
+        grid.classList.remove('show-all');
+        btn.textContent = 'View More';
+    } else {
+        grid.classList.add('show-all');
+        btn.textContent = 'View Less';
+    }
+}
+
+// ========== COUNTDOWN ==========
+(function(){
+    let duration = 15*60;
+    const timerEl = document.getElementById('flashTimer'), stockEl = document.getElementById('stockBar'), stockPercentEl = document.getElementById('stockPercent');
+    setInterval(() => {
+        const m = Math.floor(duration/60), s = duration%60;
+        timerEl.textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        let pct = Math.floor((duration/(15*60))*100);
+        stockEl.style.width = pct+'%'; stockPercentEl.textContent = pct+'%';
+        duration--;
+        if(duration<0) { timerEl.textContent = "00:00"; stockEl.style.width = '100%'; stockPercentEl.textContent = '100%'; }
+    }, 1000);
+})();
+
+// Social proof
+const locations = ['Mumbai','Delhi','Bangalore','Kolkata','Chennai','Hyderabad','Pune','Ahmedabad'];
+const socialPopup = document.getElementById('socialPopup');
+const socialNameEl = document.getElementById('socialName'), socialLocationEl = document.getElementById('socialLocation'), socialQtyEl = document.getElementById('socialQty'), socialPriceEl = document.getElementById('socialPrice'), socialAvatarEl = document.getElementById('socialAvatar');
+const names = ['Arif','Priya','Ravi','Sneha','Vikram','Anjali','Amit','Pooja','Rahul','Karan'];
+const locs = ['Mumbai','Delhi','Bangalore','Kolkata','Chennai','Hyderabad','Pune','Ahmedabad','Jaipur','Surat'];
+function showSocialPopup() {
+    const name = names[Math.floor(Math.random()*names.length)];
+    const loc = locs[Math.floor(Math.random()*locs.length)];
+    const qty = Math.floor(Math.random()*3)+1;
+    const price = qty===1?599:qty===2?849:999;
+    socialNameEl.innerText = name; socialLocationEl.innerText = 'from ' + loc;
+    socialQtyEl.innerText = qty + (qty>1?' pieces':' piece'); socialPriceEl.innerText = '₹'+price;
+    socialAvatarEl.innerText = name.charAt(0).toUpperCase();
+    socialPopup.classList.add('show');
+    setTimeout(() => socialPopup.classList.remove('show'), 4000);
+    setTimeout(showSocialPopup, 18000 + Math.floor(Math.random()*8000));
+}
+setTimeout(showSocialPopup, 5000);
+
+function openWhatsApp() { window.open('https://wa.me/+917044290659?text=Hi%20Flycarts,%20I%20need%20help', '_blank'); }
+
+window._changeCartQty = changeCartQty;
+window._removeFromCart = removeFromCart;
+window._checkoutChangeQty = checkoutChangeQty;
+
+// Tracking
+const TRACK_STORAGE_KEY = 'flycarts_last_order';
+function getStoredOrder() { try { const raw = localStorage.getItem(TRACK_STORAGE_KEY); if (!raw) return null; const data = JSON.parse(raw); if (Date.now() > data.timestamp + 24*3600000) { localStorage.removeItem(TRACK_STORAGE_KEY); return null; } return data; } catch(e) { localStorage.removeItem(TRACK_STORAGE_KEY); return null; } }
+function saveOrderForTracking(trackData) { localStorage.setItem(TRACK_STORAGE_KEY, JSON.stringify(trackData)); updateTrackIconUI(); showTrackToast('✅ Order placed! Tap 👤 to track.'); }
+function updateTrackIconUI() { document.getElementById('trackOrderIcon').classList.toggle('has-order', !!getStoredOrder()); }
+function openTrackingModal() {
+    const order = getStoredOrder();
+    const overlay = document.getElementById('trackingModalOverlay'), body = document.getElementById('trackingModalBody');
+    if (!order) { body.innerHTML = `<div class="track-empty-state"><i class="fa fa-inbox"></i><p style="font-weight:600; font-size:15px;">No Recent Order</p><small>Place an order to see tracking details.</small></div>`; overlay.classList.add('show'); return; }
+    const totalPaid = order.totalPaid; const totalSaved = order.totalSaved;
+    const offPercent = order.offPercent; const now = Date.now(); const elapsedHours = Math.floor((now - order.timestamp)/3600000);
+    const orderDate = new Date(order.timestamp); const deliveryDate = new Date(order.timestamp); deliveryDate.setDate(deliveryDate.getDate() + (order.deliveryDays||3));
+    const fmtDate = d => d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+    const fmtTime = d => d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+    let steps;
+    if (elapsedHours < 1) steps = [
+        { label:'Order Confirmed', icon:'✓', done:true, time:fmtTime(orderDate) },
+        { label:'Preparing for Pickup', icon:'📦', done:false, active:true, time:'In progress...' },
+        { label:'Ready for Dispatch', icon:'🚚', done:false, time:'Pending' },
+        { label:'Out for Delivery', icon:'📍', done:false, time:'Pending' }
+    ];
+    else if (elapsedHours < 12) steps = [
+        { label:'Order Confirmed', icon:'✓', done:true, time:fmtTime(orderDate) },
+        { label:'Preparing for Pickup', icon:'📦', done:true, time:'Completed' },
+        { label:'Ready for Dispatch', icon:'🚚', done:false, active:true, time:'Expected soon' },
+        { label:'Out for Delivery', icon:'📍', done:false, time:'Pending' }
+    ];
+    else steps = [
+        { label:'Order Confirmed', icon:'✓', done:true, time:fmtTime(orderDate) },
+        { label:'Preparing for Pickup', icon:'📦', done:true, time:'Completed' },
+        { label:'Ready for Dispatch', icon:'🚚', done:true, time:'Ready' },
+        { label:'Out for Delivery', icon:'📍', done:false, active:true, time:'Tracking soon' }
+    ];
+    const timelineHTML = steps.map(s => `
+        <div class="track-step ${s.done?'completed':''} ${s.active?'active':''}">
+            <div class="step-circle">${s.icon}</div>
+            <div class="step-label">${s.label}</div>
+            <div class="step-time">${s.time}</div>
+        </div>
+    `).join('');
+    const copyText = `Order ID: ${order.orderId}\nProduct: ${order.productName}\nTotal Paid: ₹${totalPaid.toLocaleString('en-IN')}\nYou Saved: ₹${totalSaved.toLocaleString('en-IN')} (${offPercent}% OFF)\nOrdered: ${fmtDate(orderDate)} at ${fmtTime(orderDate)}\nEstimated Delivery: ${fmtDate(deliveryDate)}\nTransaction ID: ${order.txnId || 'N/A'}`;
+    const waitingMsg = elapsedHours < 12
+        ? `<div class="track-info-card"><div class="track-wait-msg"><i class="fa fa-clock"></i><span><strong>⏳ Your order is being prepared for dispatch.</strong> Full tracking available after <strong>12–24 hours</strong>.</span></div><div class="track-actions-row"><button class="btn-copy" onclick="copyOrderDetails('${copyText.replace(/'/g, "\\'")}')"><i class="fa fa-copy"></i> Copy Order Details</button><button class="btn-more" onclick="window.location.href='https://flycart-hot-deals.space/'"><i class="fa fa-fire"></i> View More Products</button></div></div>`
+        : `<div class="track-info-card" style="background:#e8f5e9; border-color:#a5d6a7;"><div class="track-wait-msg" style="color:#1e7e34;"><i class="fa fa-check-circle" style="color:#2e7d32;"></i><span><strong>✅ Almost ready!</strong> Tracking details will appear soon.</span></div><div class="track-actions-row"><button class="btn-copy" onclick="copyOrderDetails('${copyText.replace(/'/g, "\\'")}')"><i class="fa fa-copy"></i> Copy Order Details</button><button class="btn-more" onclick="window.location.href='https://flycart-hot-deals.space/'"><i class="fa fa-fire"></i> View More Products</button></div></div>`;
+    body.innerHTML = `
+        <div class="track-order-card">
+            <div style="display:flex; gap:12px; align-items:center; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid #eee;">
+                <img src="${order.productImage}" alt="Product" style="width:50px; height:50px; object-fit:contain; border-radius:6px;">
+                <div><div style="font-weight:600; font-size:13px;">${order.productName}</div><div style="font-size:11px; color:#888;">Qty: ${order.items ? order.items.reduce((s,i) => s + i.qty, 0) : '...'}</div></div>
+            </div>
+            <div class="track-order-row"><span class="lbl">📦 Order ID</span><span class="val">${order.orderId}</span></div>
+            <div class="track-order-row"><span class="lbl">🕐 Ordered</span><span class="val">${fmtDate(orderDate)} at ${fmtTime(orderDate)}</span></div>
+            <div class="track-order-row"><span class="lbl">💰 Total Paid</span><span class="val price">₹${totalPaid.toLocaleString('en-IN')}</span></div>
+            <div class="track-order-row"><span class="lbl">💸 You Saved</span><span class="val saved">₹${totalSaved.toLocaleString('en-IN')} (${offPercent}% OFF)</span></div>
+            ${order.txnId ? `<div class="track-order-row"><span class="lbl">🔒 Txn ID</span><span class="val">${order.txnId}</span></div>` : ''}
+            ${order.cod ? `<div class="track-order-row"><span class="lbl">✅ Paid in Advance</span><span class="val price">₹${order.partialPaid.toLocaleString('en-IN')}</span></div><div class="track-order-row"><span class="lbl">💰 Due on Delivery</span><span class="val" style="color:#e65100;">₹${order.dueAmount.toLocaleString('en-IN')}</span></div>` : ''}
+        </div>
+        <div class="track-delivery-est"><i class="fa fa-truck"></i> Estimated Delivery: <strong>${fmtDate(deliveryDate)}</strong></div>
+        <h4 style="font-size:14px; font-weight:600; margin:16px 0 10px;">📋 Order Progress</h4>
+        <div class="track-timeline">${timelineHTML}</div>
+        ${waitingMsg}
+    `;
+    overlay.classList.add('show');
+}
+window.copyOrderDetails = function(text) { if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => showTrackToast('✅ Order details copied!')); else { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showTrackToast('✅ Order details copied!'); } };
+function closeTrackingModal() { document.getElementById('trackingModalOverlay').classList.remove('show'); }
+function showTrackToast(msg) { let t = document.getElementById('trackToast'); if (!t) { t = document.createElement('div'); t.id='trackToast'; t.className='track-toast'; document.body.appendChild(t); } t.textContent = msg; t.style.display='block'; clearTimeout(t._timer); t._timer = setTimeout(() => { t.style.display='none'; }, 2500); }
+updateTrackIconUI();
+setInterval(updateTrackIconUI, 5*60*1000);
+
+initCampaignPage();
+updateCartCount();
+
+// anti-copy
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 123) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
+    if (e.ctrlKey && e.keyCode === 67 && document.activeElement && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') { e.preventDefault(); return false; }
+});
+document.addEventListener('selectstart', e => e.preventDefault());
+
+function triggerOrderSuccessAnimation() {
+    const modal = document.getElementById('fcSuccessModal');
+    if(modal) modal.classList.add('fc-show');
+    const totalValue = cart.length ? cart.reduce((s,i)=> s + (i.totalPrice || 0), 0) : 499;
+    fbqTrack('Purchase', { value: totalValue, currency: 'INR' });
+    
+    if (typeof confetti === 'function') {
+        var count = 200;
+        var defaults = { origin: { y: 0.6 }, zIndex: 100000 };
+        function fire(particleRatio, opts) { confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(count * particleRatio) })); }
+        fire(0.25, { spread: 26, startVelocity: 55 });
+        fire(0.2, { spread: 60 });
+        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 120, startVelocity: 45 });
+    }
+}
+function fcCloseSuccessModal() { const modal = document.getElementById('fcSuccessModal'); if(modal) modal.classList.remove('fc-show'); const checkoutPage = document.getElementById('checkoutPage'); if(checkoutPage) checkoutPage.style.display = 'none'; document.body.style.overflow = 'auto'; }
+function trackOrderFromSuccess() { document.getElementById('successModal').style.display = 'none'; document.getElementById('checkoutPage').style.display = 'none'; document.body.style.overflow = 'auto'; updateTrackIconUI(); window.scrollTo(0, 0); openTrackingModal(); }
+
+fbqTrack('PageView');
+</script>
+</body>
+</html>
